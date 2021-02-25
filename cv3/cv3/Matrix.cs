@@ -43,7 +43,7 @@ namespace cv3
                     //radky a sloupce
                     for (int y = 0; y < a.matrix.GetLength(1); y++)
                     {
-                        //odecitani matice je ale opacne, 1. radek - 1.sloupec ... atd
+                        //odecitani matice
                        
                         vysledek.matrix[x, y] = a.matrix[x, y] - b.matrix[x, y];
                         
