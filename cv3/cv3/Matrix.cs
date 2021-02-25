@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cv3
 {
-    class Matrix
+    public class Matrix
     {
         private double[,] matrix;
         public Matrix(double[,] matrix)
@@ -43,10 +43,8 @@ namespace cv3
                     //radky a sloupce
                     for (int y = 0; y < a.matrix.GetLength(1); y++)
                     {
-                        //odecitani matice
-                       
-                        vysledek.matrix[x, y] = a.matrix[x, y] - b.matrix[x, y];
-                        
+                        //odecitani matice                       
+                        vysledek.matrix[x, y] = a.matrix[x, y] - b.matrix[x, y];                        
                     }
                 }
             }
@@ -83,8 +81,7 @@ namespace cv3
         }
         public static bool operator ==(Matrix a, Matrix b)
         {
-            Matrix vysledek = new Matrix(new double[a.matrix.GetLength(0), a.matrix.GetLength(1)]);
-
+            bool equals = true;
             try
             {
                 for (int x = 0; x < a.matrix.GetLength(0); x++)
@@ -94,37 +91,19 @@ namespace cv3
                     {
                         if (a.matrix[x, y] != b.matrix[x, y]){
                             //pokud se nerovnaji rovnou vraci false
-                            return false;
+                            equals = false;
                         }
                     }
                 }
             }
             catch
-            { Console.WriteLine("Chyba");}
-            //jinak vraci true pokud nedojde k zadne nerovnosti
-            return true;
+            { Console.WriteLine("Chyba"); }
+            return equals;
+           
         }
         public static bool operator !=(Matrix a, Matrix b)
         {
-            Matrix vysledek = new Matrix(new double[a.matrix.GetLength(0), a.matrix.GetLength(1)]);
-            try
-            {
-                for (int x = 0; x < a.matrix.GetLength(0); x++)
-                {
-                    //radky a sloupce
-                    for (int y = 0; y < a.matrix.GetLength(1); y++)
-                    {
-                        if (a.matrix[x, y] == b.matrix[x, y]){
-                            //kdyz se rovnaji tak nemuze byt nerovnost true
-                            return false;
-                        }
-                    }
-                }
-            }
-            catch
-            { Console.WriteLine("Chyba");}
-            //pokud se projedou matice a nejsou doposud rovny tak je true
-            return true;
+            return !(a == b);
         }
 
         //unarni -
@@ -186,24 +165,20 @@ namespace cv3
         }
         public override string ToString()
         {
+
             string vystup = "";
-            try
+            for (int x = 0; x < matrix.GetLength(0); x++)
             {
-                for (int x = 0; x < matrix.GetLength(0); x++)
+                //radky a sloupce
+                for (int y = 0; y < matrix.GetLength(1); y++)
                 {
-                    //radky a sloupce
-                    for (int y = 0; y < matrix.GetLength(1); y++)
-                    {
-                        //prida tebulator
-                        vystup += matrix[x, y]+"\t ";
-                    }
-                    //kazdy radek prida radek vypisu
                     //prida tebulator
-                    vystup += "\n";
+                    vystup += matrix[x, y]+"\t ";
                 }
+                //kazdy radek prida radek vypisu
+                vystup += "\n";
             }
-            catch
-            { Console.WriteLine("Chyba"); }
+
             return vystup;
         }
     }
