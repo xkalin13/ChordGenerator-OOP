@@ -109,7 +109,17 @@ namespace cv4
                 words.Add(word);
             }
         }
+        public bool isInfected() {
 
+            foreach (var word in words)
+            {
+                if (word.ToLower().Contains("sars-cov-2") || word.ToLower().Contains("covid-19") || word.ToLower().Contains("covid"))
+                {
+                    return true;
+                }              
+            }
+            return false;
+        }
 
     }
 }

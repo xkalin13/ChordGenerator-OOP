@@ -30,6 +30,9 @@ namespace cv4
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Abecedne slova []: ");            
             stringStat.sortByAlphabet().ForEach(Console.WriteLine);
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("Je text nakazen covidem?: "+stringStat.isInfected());
+
 
         }
     }
