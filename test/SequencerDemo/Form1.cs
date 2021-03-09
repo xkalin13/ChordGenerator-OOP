@@ -296,6 +296,17 @@ namespace SequencerDemo
                 Console.WriteLine("modificator: " + modificator.SelectedItem.ToString());
                 Console.WriteLine("mood: " + mood.SelectedItem.ToString());
                 g.GenerateChordProgression("C","major"," ", "Cliché");
+                int len = g.getNumberChords();//4
+                for (int i = 0; i < len; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        Play(g.playNote(i, j));
+                        
+                    }
+                    Thread.Sleep(1000);//pockat po akordu
+                }
+                
                 //g.GenerateChordProgression(key.SelectedItem.ToString(), mode.SelectedItem.ToString(), modificator.SelectedItem.ToString(), mood.SelectedItem.ToString());
             }
             catch (Exception ex)
@@ -303,5 +314,14 @@ namespace SequencerDemo
                 MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+        public void playerPlay(int noteid) {
+            Console.WriteLine("JEDEEEE");
+            if (playing)
+            {
+                return;
+            }
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, noteid, 127));
+        }
+
     }
 }

@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Text.RegularExpressions;
 using Sanford.Multimedia.Midi;
-
+using SequencerDemo;
 namespace ChordGenerator
 {
     public struct ChordType
@@ -100,10 +100,12 @@ namespace ChordGenerator
     }
 public class Generator
     {
-        OutputDevice outDevice;
+
+
+ 
         //Vars & instances
         public static NoteModifiers[] NoteModifiers = new NoteModifiers[3];
-        public static NoteDetails[] NoteDetails = new NoteDetails[12];
+        public static NoteDetails[] detailNoty = new NoteDetails[12];
         public static Mode[] Mode = new Mode[2];
         public static Progressions[] Progressions = new Progressions[15];
 
@@ -112,7 +114,8 @@ public class Generator
         public Progressions progression = Progressions[2];
         public Mode mode;//TODO check
         public char baseNote = baseNotes[0];
-        public int[] globalLen = new int[NoteDetails.Length];
+        ChordType[] ChordTypes1 = new ChordType[7];
+        ChordType[] ChordTypes2 = new ChordType[7];
         public void setValues(char key, char modificator,string modeVal, string cadence)
         {
             Console.WriteLine("set values");
@@ -142,10 +145,11 @@ public class Generator
             {
                 Console.WriteLine("Mode.Name: "+Mode[i].Name);
                 Console.WriteLine("mode i: " + i);
-                if (Mode[i].Name.Equals(modeVal))//kdyz je meno stejne jako mode ze vstupu
+                if (Mode[i].Name.Contains(modeVal))//kdyz je meno stejne jako mode ze vstupu
                 {
                     Console.WriteLine("Mode se rovna " + Mode[i].Name+" : "+modeVal);
                     mode = Mode[i];
+                    Console.WriteLine("Mode je---------- " + mode.Name + " : oposite-" + mode.OpositeMode);
                     break;//z loopu
                 }
                 
@@ -182,54 +186,54 @@ public class Generator
 
             //noty stupnice
             Console.WriteLine("ASSIGN-noteDetail 1-4");
-            NoteDetails[0] = new NoteDetails(60, new string[] { "C.", "B+", "D--" });
-            NoteDetails[1] = new NoteDetails(61, new string[] { "C+", "D-" });
-            NoteDetails[2] = new NoteDetails(62, new string[] { "D.", "C++", "E--" });
-            NoteDetails[3] = new NoteDetails(63, new string[] { "D+", "E-", "F--" });
+            detailNoty[0] = new NoteDetails(60, new string[] { "C.", "B+", "D--" });
+            detailNoty[1] = new NoteDetails(61, new string[] { "C+", "D-" });
+            detailNoty[2] = new NoteDetails(62, new string[] { "D.", "C++", "E--" });
+            detailNoty[3] = new NoteDetails(63, new string[] { "D+", "E-", "F--" });
             Console.WriteLine("ASSIGN-noteDetail 5-8");
-            NoteDetails[4] = new NoteDetails(64, new string[] { "E.", "F-", "D++" });
-            NoteDetails[5] = new NoteDetails(65, new string[] { "F.", "E+", "G--" });
-            NoteDetails[6] = new NoteDetails(66, new string[] { "F+", "G-" });
-            NoteDetails[7] = new NoteDetails(67, new string[] { "G.", "F++", "A--" });
+            detailNoty[4] = new NoteDetails(64, new string[] { "E.", "F-", "D++" });
+            detailNoty[5] = new NoteDetails(65, new string[] { "F.", "E+", "G--" });
+            detailNoty[6] = new NoteDetails(66, new string[] { "F+", "G-" });
+            detailNoty[7] = new NoteDetails(67, new string[] { "G.", "F++", "A--" });
             Console.WriteLine("ASSIGN-noteDetail 9-12");
-            NoteDetails[8] = new NoteDetails(68, new string[] { "G+", "A-" });
-            NoteDetails[9] = new NoteDetails(69, new string[] { "A.", "G++", "B--" });
-            NoteDetails[10] = new NoteDetails(70, new string[] { "A+", "B-", "C--" });
-            NoteDetails[11] = new NoteDetails(71, new string[] { "B.", "C-", "A++" });
+            detailNoty[8] = new NoteDetails(68, new string[] { "G+", "A-" });
+            detailNoty[9] = new NoteDetails(69, new string[] { "A.", "G++", "B--" });
+            detailNoty[10] = new NoteDetails(70, new string[] { "A+", "B-", "C--" });
+            detailNoty[11] = new NoteDetails(71, new string[] { "B.", "C-", "A++" });
 
 
             //Mody
             Console.WriteLine("ASSIGN-mody");
-            ChordType[] ChordTypes = new ChordType[7];
+            
 
             //DUR
             Console.WriteLine("ASSIGN-dur");
-            ChordTypes[0] = new ChordType("major", "");
-            ChordTypes[1] = new ChordType("minor", "m");
-            ChordTypes[2] = new ChordType("minor", "m");
-            ChordTypes[3] = new ChordType("major", "");
+            ChordTypes1[0] = new ChordType("major", "");
+            ChordTypes1[1] = new ChordType("minor", "m");
+            ChordTypes1[2] = new ChordType("minor", "m");
+            ChordTypes1[3] = new ChordType("major", "");
 
-            ChordTypes[4] = new ChordType("major", "");
-            ChordTypes[5] = new ChordType("minor", "m");
-            ChordTypes[6] = new ChordType("diminished", "dim");
+            ChordTypes1[4] = new ChordType("major", "");
+            ChordTypes1[5] = new ChordType("minor", "m");
+            ChordTypes1[6] = new ChordType("diminished", "dim");
             Console.WriteLine("ASSIGN-dur-Mode");
-            Mode[0] = new Mode("major", 3, "minor", new int[] { 2, 2, 1, 2, 2, 2, 1 }, ChordTypes);
-
+            Mode[0] = new Mode("major", 3, "minor", new int[] { 2, 2, 1, 2, 2, 2, 1 }, ChordTypes1);
+            Console.WriteLine("******************" + Mode[0].ChordType);
             //MOLL
             Console.WriteLine("ASSIGN-moll");
-            ChordTypes[0] = new ChordType("minor", "m");
-            ChordTypes[1] = new ChordType("diminished", "dim");
-            ChordTypes[2] = new ChordType("major", "");
-            ChordTypes[3] = new ChordType("minor", "m");
-            ChordTypes[4] = new ChordType("minor", "m");
+            ChordTypes2[0] = new ChordType("minor", "m");
+            ChordTypes2[1] = new ChordType("diminished", "dim");
+            ChordTypes2[2] = new ChordType("major", "");
+            ChordTypes2[3] = new ChordType("minor", "m");
+            ChordTypes2[4] = new ChordType("minor", "m");
 
-            ChordTypes[5] = new ChordType("major", "");
-            ChordTypes[6] = new ChordType("major", "");
-
+            ChordTypes2[5] = new ChordType("major", "");
+            ChordTypes2[6] = new ChordType("major", "");
+            
             Console.WriteLine("ASSIGN-moll-mode");
 
-            Mode[1] = new Mode("minor", 9, "major", new int[] { 2, 1, 2, 2, 1, 2, 2 }, ChordTypes);
-
+            Mode[1] = new Mode("minor", 9, "major", new int[] { 2, 1, 2, 2, 1, 2, 2 }, ChordTypes2);
+            Console.WriteLine("******************" + Mode[1].ChordType);
             //kadence
             Console.WriteLine("ASSIGN-progression");
 
@@ -248,11 +252,6 @@ public class Generator
             Progressions[12] = new Progressions("Twelve Bar Blues", new int[] { 0, 0, 0, 0, 3, 3, 0, 0, 4, 3, 0, 4 });
             Progressions[13] = new Progressions("Wistful", new int[] { 0, 0, 3, 5 });
 
-            for (int i = 0; i < NoteDetails.Length; i++)
-            {
-                globalLen[i] = NoteDetails[i].NoteArray.Length;
-                Console.WriteLine("globalLen[i]" + globalLen[i]);
-            }
         }
         public void randomizeProgression()//done
         {
@@ -260,10 +259,10 @@ public class Generator
             noteModifier = NoteModifiers[randomItem(NoteModifiers.Length)];
             progression = Progressions[randomItem(Progressions.Length)];
             baseNote = baseNotes[randomItem(baseNotes.Length)];
-            mode = Mode[randomItem(Mode.Length)];
+            //mode = Mode[randomItem(Mode.Length)];
         }
 
-        Note[] scale;//obsahuje spravne zapsane noty s midi podle poradi
+        Note[] scale = new Note[7];//obsahuje spravne zapsane noty s midi podle poradi
 
         public void recalculateScale()//done
         {
@@ -288,70 +287,78 @@ public class Generator
             return rnd.Next(0, length);
         }
 
-        Chord[] AllChordsInKey = new Chord[12];//TODO DELKA
+        Chord[] keyChords = new Chord[7];//TODO DELKA
 
         //todo alternativy        
         public NoteDetails getNoteDetails(string noteStr) {//vrati konretni popis noty podle zadane noty
             Console.WriteLine("getNoteDetails");
-            NoteDetails noteDetails = new NoteDetails();
+            NoteDetails notyVporadi = new NoteDetails();
 
-            for (var i = 0; i < NoteDetails.Length; i++){
+            for (var i = 0; i < detailNoty.Length; i++){
                 //zvoli notu kazdy cyklus
-                var currentNote = NoteDetails[i];
+                var currentNote = detailNoty[i];
                 //projede pole s nazvy tonu
                 for (var j = 0; j < currentNote.NoteArray.Length; j++){
                     //pokud je tento ton = tonu ze stringu 
                     var currentNoteVal = currentNote.NoteArray[j];
                     if (currentNoteVal == noteStr){
                         //zjisti ve kterem poli je vybrana nota a vrati konkretni notu z pole not
-                        noteDetails = currentNote;
+                        notyVporadi = currentNote;
                         break;
                     }
                 }
-                if (!noteDetails.MidiNumber.Equals(null)){//kdyby detail uz byl vlozen vyskoci
+                Console.WriteLine(notyVporadi.MidiNumber);
+                if (!notyVporadi.MidiNumber.Equals(null)){
+                    //kdyby detail uz byl vlozen vyskoci
                     break;
                 }
             }
-            return noteDetails;
+ 
+            return notyVporadi;
         }
    
         public NoteDetails[] getAllNotesInOrder(NoteDetails rootNoteDetails){ //pole tonu =  midi+jmenatonu
             Console.WriteLine("getAllNotesInOrder");
-            NoteDetails[] orderedNotes = new NoteDetails[NoteDetails.Length];
+            NoteDetails[] orderedNotes = new NoteDetails[detailNoty.Length];
             
-            for (var i = 0; i < NoteDetails.Length; i++)//projede vsechny noty a zacne vkladat notu do noveho poleNot az teprve od prvniho tonu |G | = G A B C---
+            for (var i = 0; i < detailNoty.Length; i++)//projede vsechny noty a zacne vkladat notu do noveho poleNot az teprve od prvniho tonu |G | = G A B C---
             {
 
-                var note = NoteDetails[i];
-                Console.WriteLine("rootNoteDetails: " + rootNoteDetails.MidiNumber);
-                Console.WriteLine("NoteDetails[i]: " + note.MidiNumber);
+                NoteDetails note = detailNoty[i];
+                //Console.WriteLine("rootNoteDetails: " + rootNoteDetails.MidiNumber);
+                //Console.WriteLine("NoteDetails[i]: " + note.MidiNumber);
                 //pokud se shoduje midi z konkretni noty a zakladni noty
                 if (note.MidiNumber == rootNoteDetails.MidiNumber)//pokud preskoci vrati se na zacatek k |C|
                 {
-                    Console.WriteLine(note.MidiNumber+" tedka hodnota se rovna root "+ rootNoteDetails.MidiNumber);
-                    var startIndex = i; 
-                    var j = 0;                    
-                    while (j < NoteDetails.Length)//kolikata celkova nota pole not to je 
+                    //Console.WriteLine(note.MidiNumber+" tedka hodnota se rovna root "+ rootNoteDetails.MidiNumber);
+                    int startIndex = i; 
+                    int j = 0;                    
+                    while (j < detailNoty.Length)//kolikata celkova nota pole not to je 
                     {
 
                         var trueIndex = startIndex + j;
                         // pokud pretece pole odecte se delka aby se jelo znovu
 
-                        if (trueIndex >= NoteDetails.Length)
+                        if (trueIndex >= detailNoty.Length)
                         {
-                            trueIndex -= NoteDetails.Length;
+                            trueIndex -= detailNoty.Length;
                         }
 
-                        orderedNotes[i] = NoteDetails[trueIndex];
-                        Console.WriteLine("[i]  " + i+j);
-                        Console.WriteLine("orderedNotes[i]  "+ orderedNotes[i].MidiNumber);
+                        orderedNotes[j] = detailNoty[trueIndex];
+                        //Console.WriteLine("[i]  " + i+j);
+                        //Console.WriteLine("orderedNotes[i]  "+ orderedNotes[i].MidiNumber);
                         //orderedNotes[i].len = NoteDetails[trueIndex].len;//todo nebere to delku len
                         j++;
                     }
-                    break; // nasel midiNumber
+                    //Console.WriteLine("break");
+                    break;
+                    // nasel midiNumber
                 }
             }
-            
+            for (int i = 0; i < 12; i++)
+            {
+                Console.WriteLine("---"+ orderedNotes[i].NoteArray.Length);
+            }
             return orderedNotes;
         }
     
@@ -384,15 +391,17 @@ public class Generator
             // This will return an array of notes representing a scale.
             // baseNote and returned notes should be something like "C+", "C-" or "C."
             // absoluteSteps is a 0-based array of notes.
-            NoteDetails[] notesInOrder = new NoteDetails[12];//deklarace
+            
 
             NoteDetails rootNoteDetails = getNoteDetails(rootNoteStr);//vraci  jednu notu - midi cislo a array stringumena tonu 
-            notesInOrder = getAllNotesInOrder(rootNoteDetails);// seradi noty ve stupnici ||| Ddur =  D D# E F F# G G# A A# B C C#
+            //Console.WriteLine("roooot"+rootNoteDetails.MidiNumber);
+            NoteDetails[] notesInOrder = getAllNotesInOrder(rootNoteDetails);// seradi noty ve stupnici ||| Ddur =  D D# E F F# G G# A A# B C C#
             
 
             // pole not tonin
             //Console.WriteLine("NoteDetails.Length: "+ NoteDetails.Length);
-            NoteDetails[] detailScale = new NoteDetails[NoteDetails.Length];//todo 12
+            NoteDetails[] detailScale = new NoteDetails[7];//todo 12
+            Console.WriteLine("--------------"+ notesInOrder.Length);
             for (int i = 0; i < 12; i++)
             {
                 Console.WriteLine("notesInOrder " + notesInOrder[i].MidiNumber);
@@ -400,43 +409,47 @@ public class Generator
             for (var i = 0; i < steps.Length; i++)
             {
                 //vlozi noty ze stupnice do pole ale pouze ty ktere tam patri pomoci krokovani||| Ddur =  D E F F# G A B C#
-               /* Console.WriteLine("step.length " + steps.Length);
-                Console.WriteLine("step index" + steps[i]);*/
+               
+               
                // Console.WriteLine("notesInOrder len: " + notesInOrder[steps[i]].len);
+                //Console.WriteLine(i+" < " + steps.Length);
+                //Console.WriteLine(notesInOrder[steps[i]].NoteArray + " v indexu steps[i]" + steps[i]);
                 detailScale[i] = notesInOrder[steps[i]];
                 
-                
+
+
             }
+            /*foreach (var item in detailScale)
+            {
+                Console.WriteLine("Delka: "+item.NoteArray.Length); /7x3
+            }*/
             //Console.WriteLine("notograficky-NoteDetails.Length"+ NoteDetails.Length);
             // notograficky spravny zapis vsech not stupnice.
-            Note[] strScale= new Note[NoteDetails.Length]; //todo 12
+            Console.WriteLine("++++++++" + detailScale.Length);
+            Note[] strScale = new Note[7]; //todo 12 CDEFGAHC
 
-            var currentLetter = rootNoteStr[0];// prvni pismeno = ze stringu jmena tonu
-            NoteDetails noteDetailse;
+            var currentLetter = rootNoteStr[0];// prvni pismeno = ze stringu jmena tonu           
 
             Console.WriteLine("-------------------------------------------------");
             for (var i = 0; i < detailScale.Length; i++){// pro vsechny nazvy tonu
                 Console.WriteLine("i+: " + i);
-                 noteDetailse = detailScale[i]; //nota z toniny podle poradi
-                Console.WriteLine("length: "+ globalLen[i]);
+                NoteDetails noteDetailse = detailScale[i]; //nota z toniny podle poradi
+                Console.WriteLine("Delka aktualniho pole stringu "+ detailScale[i].NoteArray.Length);
                 //TODO
-                Console.WriteLine("notograficky prepis");
-                for (var j = 0; j < globalLen[i]; j++){
-                    Console.WriteLine("noteDetailse.NoteArray[j] " + noteDetailse.NoteArray[j]);
+                for (var j = 0; j < detailScale[i].NoteArray.Length; j++){//3
+                    //Console.WriteLine("noteDetailse.NoteArray[j] " + noteDetailse.NoteArray[j]);
                     var noteStr = noteDetailse.NoteArray[j];
 
                     if (noteStr[0] == currentLetter)
                     {
-                        Console.WriteLine("jsem vevnitr s indexem" + j);
+                        //Console.WriteLine("jsem vevnitr s indexem" + j);
                         //pokud je nazev tonu z pole nazvu == tonu ze stringu, vlozi ton s lepsim jmenem do stupnice
                         string RealNoteNameStr = prettifyNoteStr(noteStr);
 
-                        strScale[j] = new Note(RealNoteNameStr, noteDetailse);//prida notu do pole not s hezkym jmenem
-                        Console.WriteLine("str scale: " + strScale[j].RealNoteName);
+                        strScale[i] = new Note(RealNoteNameStr, noteDetailse);//prida notu do pole not s hezkym jmenem
+                        Console.WriteLine("Scale " + strScale[j].RealNoteName);
                     }
-                    else {
-                        Console.WriteLine("NENI" + noteDetailse.NoteArray[j]);
-                    }
+                    
                 }
                 // inkrementace - posouvame se od pismena v abecede dale
                 // C D E F G | A B ------C D E F G | A B -------C
@@ -450,46 +463,69 @@ public class Generator
                     Console.WriteLine("currentLetter " + currentLetter);
                 }
             }
+            Console.WriteLine("pocet in str"+strScale.Length);
+            foreach (var item in strScale)
+            {
+                Console.WriteLine("currentLetter " + item.RealNoteName);
+            }
             return strScale;
         }
 
         public Chord[] getProgressionFromBaseAndMode(string rootNote, Mode mode)
         {
-            var absSteps = getAbsoluteSteps(mode);
-            var scale = getScale(rootNote, absSteps);
+            int[] absSteps = getAbsoluteSteps(mode);
+            Note[] scaler = getScale(rootNote, absSteps);//vrati 7
 
-            Chord[] chordsInKey = new Chord[scale.Length];//pole akordu ve stupnici
-            for (var i = 0; i < scale.Length; i++)
-            {                          
+            Chord[] chordsInKey = new Chord[scaler.Length];//pole akordu ve stupnici
+            Console.WriteLine("scale.Length " + scaler.Length);
+            for (var i = 0; i < scaler.Length; i++)//7 udela akordy ze stupnice 7x
+            {
                 //name /mode /details
-                chordsInKey[i] = new Chord(scale[i].RealNoteName + mode.ChordType[i].Symbol, mode.ChordType[i], scale[i].NoteDetails);
+                Console.WriteLine("scalerNameChord " + scaler[i].RealNoteName);
+                Console.WriteLine("scalertype " + mode.ChordType[i].Symbol);
+                Console.WriteLine("scalerNameChord " + scaler[i].NoteDetails);
+                chordsInKey[i] = new Chord(scaler[i].RealNoteName + mode.ChordType[i].Symbol, mode.ChordType[i], scaler[i].NoteDetails);
             }
+
             return getProgression(progression, chordsInKey);
         }
 
     
         public Chord[] getProgression(Progressions progressionDetails, Chord[] chordsInKey)
         {
-            Chord[] progression = new Chord[7];//pole akordu ktere vezme stupnici a vezme jen ty ktere maji kadenci
+            Console.WriteLine("POOOOOOOOOOOCET KADENCI" + progressionDetails.Steps.Length);
+            Chord[] progression = new Chord[progressionDetails.Steps.Length];//pole akordu ktere vezme stupnici a vezme jen ty ktere maji kadenci
             for (var i = 0; i < progressionDetails.Steps.Length; i++)
             {//podle poctu akordu
                 var step = progressionDetails.Steps[i];//projede pole kadenci 
-                progression[i]= chordsInKey[step];//vrati ktery akord je na kroku step 
+                progression[i] = chordsInKey[step];//vrati ktery akord je na kroku step 
             }
             return progression;
         }
 
         
-        public void recalculateAllChordsInKey()
+        public void recalculateAllChordsInKey()//cdefgab
         {
             Console.WriteLine("recalculateAllChordsInKey");
-            Chord[] allChordsInKey = new Chord[scale.Length];
-            for (var i = 0; i < scale.Length; i++)
-            {                
+            Console.WriteLine("ChordTypes " + ChordTypes1.Length);
+            Console.WriteLine("--------------------------------------");
+            Chord[] allChordsInKey = new Chord[ChordTypes1.Length];
+
+            for (var i = 0; i < allChordsInKey.Length; i++)
+            {
                 //name /mode /details
+                /*Console.WriteLine("scale[i].RealNoteName "+ scale[i].RealNoteName);
+                Console.WriteLine("mode.ChordType[i].Symbol "+ mode.ChordType[i].Symbol.ToString());
+                Console.WriteLine("mode.ChordType[i] " + mode.ChordType[i].ToString());
+                Console.WriteLine("scale[i].NoteDetails " + scale[i].NoteDetails.ToString());*/
+
                 allChordsInKey[i] = new Chord(scale[i].RealNoteName + mode.ChordType[i].Symbol, mode.ChordType[i], scale[i].NoteDetails);
             }
-            AllChordsInKey = allChordsInKey;
+            keyChords = allChordsInKey;
+            foreach (var item in keyChords)
+            {
+                Console.WriteLine("KEYCHORD:   " + item.ChordName);
+            }
         }
         
         Chord[] mainProgression = new Chord[4];// pole 4 akordu = progression
@@ -497,8 +533,8 @@ public class Generator
         {
             Console.WriteLine("recalculateMainProgression");
             string rootNoteStr = baseNote.ToString() + noteModifier.Sign.ToString();//string D-
-            var progression = getProgressionFromBaseAndMode(rootNoteStr, mode);//vklada string a
-
+            Chord[] progression = getProgressionFromBaseAndMode(rootNoteStr, mode);//vklada string a
+            Console.WriteLine("progression n"+ progression.ToString());
             mainProgression = progression;
 
             // $scope.mainProgression = $scope.getProgression($scope.progression, $scope.allChordsInKey);
@@ -515,29 +551,126 @@ public class Generator
             recalculateScale();
             recalculateAllChordsInKey();
             recalculateMainProgression();
+            
             //recalculateAlternatives();
             playProgression();
 
         }
         public void playProgression() {
             Console.WriteLine("play progression");
+            Console.WriteLine("mainProgression.Length "+ mainProgression.Length);
             for (int i = 0; i < mainProgression.Length; i++)//za kazdy akord
             {
                 var chord = mainProgression[i];
+                Note[] akord = notesInChord(chord);
 
-                for (int j = 0; j < chord.Details.NoteArray.Length; j++)//za kazdou notu z akordu
+                foreach (var note in akord)
                 {
-                    playNote(chord.Details.MidiNumber);
-                }            
+                    //playNote(chord.Details.MidiNumber);
+                    //scaler[i].RealNoteName + mode.ChordType[i].Symbol, mode.ChordType[i]
+                    Console.WriteLine(note.RealNoteName + note.NoteDetails.MidiNumber);
+                }//za kazdou notu z akordu
+                
             }
         
         }
-        public void playNote(int id) {
-            Console.WriteLine("play note");
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, id, 127));
+        public int playNote(int kolikakord,int koliknota) {
+
+            Note[] akord= notesInChord(mainProgression[kolikakord]);
+            return akord[koliknota].NoteDetails.MidiNumber;
+            //outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, id, 127));
 
         }
+        public Note[] notesInChord(Chord chord)
+        {
 
+            var baseNoteIndex = -1;
+            var scaler = scale;//mistni scale
+            for (var i = 0; i < scaler.Length; i++)
+            {
+                var note = scale[i];
+                if (note.NoteDetails.MidiNumber == chord.Details.MidiNumber)
+                {
+                    baseNoteIndex = i;
+                    break;
+                }
+            }
 
+            if (baseNoteIndex >= 0)
+            {
+                // get [0, 2, 4] of $scope.scale, starting at base note
+                Note[] notesInChord = new Note[3];
+
+                //prvni nota je bass
+                notesInChord[0]=scaler[baseNoteIndex];
+                Console.WriteLine("notesInChord[0"+ notesInChord[0].RealNoteName);
+                var second = baseNoteIndex + 2;
+                if (second >= scaler.Length)
+                {
+                    second = second - scaler.Length;
+                }
+                //druha nota je vypoctena 0 + 2noty
+                notesInChord[1] = scaler[second];
+                Console.WriteLine("notesInChord[1" + notesInChord[1].RealNoteName);
+                var third = baseNoteIndex + 4;
+                if (third >= scaler.Length)
+                {
+                    third = third - scaler.Length;
+                }
+                //treti nota je 0+4noty
+                notesInChord[2] = scaler[third];
+                Console.WriteLine("notesInChord[2]" + notesInChord[2].RealNoteName);
+                return notesInChord;
+            }
+            else
+            {
+                Console.WriteLine("PLNSSSSSS");
+                return null;
+                //return []; // this is weird.
+
+                // If the base note _isn't_ found, we've got an off-key chord.
+                // get [0, 4, 7] of allNotes
+
+                //var allNotes = $scope.getAllNotesInOrder(chord.baseNote);
+/*
+                Note[] notesInChord = new Note[3];
+                notesInChord.push(allNotes[0]);
+                notesInChord.push(allNotes[4]);
+                notesInChord.push(allNotes[7]);
+
+                var formattedNotes = [];
+
+                for (var i = 0; i < notesInChord.length; i++)
+                {
+                    var note = notesInChord[i];
+                    for (var j = 0; j < note.vals.length; j++)
+                    {
+                        var noteVal = note.vals[j];
+                        if (chord.name.charAt(0) === noteVal.charAt(0))
+                        {
+                            /*var name = $scope.prettifyNoteStr(noteVal);
+                            formattedNotes.push({
+                            name: name,
+                            details: note
+                            });
+                            break;
+                        }
+                    }
+                    if (formattedNotes.length <= i) {
+                        var noteVal = note.vals[0];
+                        var name = $scope.prettifyNoteStr(noteVal);
+                        f/*ormattedNotes.push({
+                            name: name,
+                            details: note
+                         });
+                    }
+                }
+
+                return formattedNotes;*/
+            }
+        }
+        public int getNumberChords() {
+            return mainProgression.Length;
+        }
     }
 }
