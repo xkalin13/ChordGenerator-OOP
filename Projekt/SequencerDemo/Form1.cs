@@ -136,13 +136,15 @@ namespace SequencerDemo
 
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, e.NoteID, 0));
         }
-        private void PlayNote(int note) {
+        private void playNote(int note,int volume = 127) {
 
             if (playing)
             {
                 return;
             }
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, 127));
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
+            //TODO moznost ztlumit notu pro kratsi delku tonu
+            //outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, note, volume));
         }
 
         private void generateChords_Click(object sender, EventArgs e)
@@ -164,21 +166,21 @@ namespace SequencerDemo
 
         private void play1_Click(object sender, EventArgs e)
         {
-            playProgression(1,PlayType.ALTERNATIVE_CHORDS);
+            playProgression(PlayType.ALTERNATIVE_CHORDS,0);
         }
 
         private void play2_Click(object sender, EventArgs e)
         {
-            playProgression(2, PlayType.ALTERNATIVE_CHORDS);
+            playProgression(PlayType.ALTERNATIVE_CHORDS,1);
         }
 
         private void play3_Click(object sender, EventArgs e)
         {
-            playProgression(3, PlayType.ALTERNATIVE_CHORDS);
+            playProgression( PlayType.ALTERNATIVE_CHORDS,2);
         }
         private void PlayProgressionBtn_Click(object sender, EventArgs e)
         {
-            playProgression(0,PlayType.MAIN_CHORDS);
+            playProgression(PlayType.MAIN_CHORDS);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -320,12 +322,13 @@ namespace SequencerDemo
         {
             playKeyChord(6);
         }
-        private void playChord(int chord,PlayType playtype, int progression = 0) {
+        private void playChord(int chordNumber,PlayType playType, int alternativeProgressionId = 0) {
             for (int j = 0; j < 3; j++)
             {
-                PlayNote(g.playNote(chord, j, playtype, progression));
-
+                playNote(g.playNote(chordNumber, j, playType, alternativeProgressionId));
+                //playNote(g.playNote(chordNumber, j, playType, alternativeProgressionId) +12);
             }
+            
         }
         private void playKeyChord(int chord) {
             playChord(chord, PlayType.KEY_CHORDS);
@@ -337,18 +340,21 @@ namespace SequencerDemo
         {
             playChord(chord,PlayType.ALTERNATIVE_CHORDS,progression);
         }
-        //private void playProgression()
-        private void playProgression(int id, PlayType playType)
+        private void playProgression(PlayType playType,int alternativeProgressionId=0)
         {
+
+
             for (int i = 0; i < 4; i++)//akordy
             {
-                for (int j = 0; j < 3; j++)//noty v akordu
-                {
-                    PlayNote(g.playNote(i, j, playType));
-
-                }
-                Thread.Sleep(1000);//pockat po akordu
+                //bass
+                playBass(i,playType, alternativeProgressionId);
+                playChord(i,playType,alternativeProgressionId);
+                Thread.Sleep(1000);
             }
+        }
+        private void playBass(int chordNumber, PlayType playType, int alternativeProgressionId = 0) {
+            playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
+           // playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId));//-24 je o 2 oktavy dolu
         }
         private void GenerateChords()
         {
@@ -359,39 +365,40 @@ namespace SequencerDemo
         }
         private void setChordNames()
         {
-            //chord1
-            button1.Text = g.getChordName(0, 0);
-            button2.Text = g.getChordName(0, 1);
-            button3.Text = g.getChordName(0, 2);
-            button4.Text = g.getChordName(0, 3);
+            //main
+            button1.Text = g.getChordName(PlayType.MAIN_CHORDS, 0);
+            button2.Text = g.getChordName(PlayType.MAIN_CHORDS, 1);
+            button3.Text = g.getChordName(PlayType.MAIN_CHORDS, 2);
+            button4.Text = g.getChordName(PlayType.MAIN_CHORDS, 3);
+
+            //ALTERNATIVE
+
+            //chord 1
+            button5.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 0, 0);
+            button6.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 1, 0);
+            button7.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 2, 0);
+            button8.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 3, 0);
             //chord 2
-            button5.Text = g.getChordName(1, 0);
-            button6.Text = g.getChordName(1, 1);
-            button7.Text = g.getChordName(1, 2);
-            button8.Text = g.getChordName(1, 3);
-            //chord3
-            button9.Text = g.getChordName(2, 0);
-            button10.Text = g.getChordName(2, 1);
-            button11.Text = g.getChordName(2, 2);
-            button12.Text = g.getChordName(2, 3);
+            button9.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 0, 1);
+            button10.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 1, 1);
+            button11.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 2, 1);
+            button12.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 3, 1);
             //chord4
-            button13.Text = g.getChordName(3, 0);
-            button14.Text = g.getChordName(3, 1);
-            button15.Text = g.getChordName(3, 2);
-            button16.Text = g.getChordName(3, 3);
+            button13.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 0, 2);
+            button14.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 1, 2);
+            button15.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 2, 2);
+            button16.Text = g.getChordName(PlayType.ALTERNATIVE_CHORDS, 3, 2);
 
 
-            //key7chords
+            //key chords
 
-            string[] s = g.getChordsInKey();
-
-            button17.Text = s[0];
-            button18.Text = s[1];
-            button19.Text = s[2];
-            button20.Text = s[3];
-            button21.Text = s[4];
-            button22.Text = s[5];
-            button23.Text = s[6];
+            button17.Text = g.getChordName(PlayType.KEY_CHORDS, 0);
+            button18.Text = g.getChordName(PlayType.KEY_CHORDS, 1);
+            button19.Text = g.getChordName(PlayType.KEY_CHORDS, 2);
+            button20.Text = g.getChordName(PlayType.KEY_CHORDS, 3);
+            button21.Text = g.getChordName(PlayType.KEY_CHORDS, 4);
+            button22.Text = g.getChordName(PlayType.KEY_CHORDS, 5);
+            button23.Text = g.getChordName(PlayType.KEY_CHORDS, 6);
         }
 
 

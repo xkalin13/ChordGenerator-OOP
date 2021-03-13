@@ -30,7 +30,6 @@ namespace SequencerDemo
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.GenerateChordsBtn = new System.Windows.Forms.Button();
             this.pianoControl1 = new Sanford.Multimedia.Midi.UI.PianoControl();
             this.key = new System.Windows.Forms.ComboBox();
@@ -82,10 +81,11 @@ namespace SequencerDemo
             this.GenerateChordsBtn.Text = "GenerateChords";
             this.GenerateChordsBtn.UseVisualStyleBackColor = true;
             this.GenerateChordsBtn.Click += new System.EventHandler(this.generateChords_Click);
+            // 
             // pianoControl1
             // 
             this.pianoControl1.HighNoteID = 109;
-            this.pianoControl1.Location = new System.Drawing.Point(0, 344);
+            this.pianoControl1.Location = new System.Drawing.Point(1, 370);
             this.pianoControl1.LowNoteID = 21;
             this.pianoControl1.Name = "pianoControl1";
             this.pianoControl1.NoteOnColor = System.Drawing.Color.SkyBlue;
@@ -128,16 +128,21 @@ namespace SequencerDemo
             this.mood.FormattingEnabled = true;
             this.mood.Items.AddRange(new object[] {
             "Alternative",
+            "Basic",
             "Cliché",
-            "Cliché 2",
-            "Creepy",
-            "Creepy 2",
-            "Endless",
-            "Energetic",
+            "Energy",
+            "Extra",
             "Memories",
-            "Rebellious",
+            "Never Ending",
+            "Nostalgy",
+            "Riot",
             "Sad",
-            "Wistful"});
+            "Strange",
+            "Weird",
+            "",
+            "",
+            "",
+            ""});
             this.mood.Location = new System.Drawing.Point(434, 74);
             this.mood.Name = "mood";
             this.mood.Size = new System.Drawing.Size(102, 21);
@@ -501,6 +506,7 @@ namespace SequencerDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Menu;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.button21);
             this.Controls.Add(this.button22);

@@ -410,35 +410,28 @@ namespace ChordGenerator
 
             alternativeChordProgressions = tempAlternativeProgression;
         }
-        public string getChordName(int passedChordProgression, int passedChordNumber)
+        public string getChordName(PlayType playType, int passedChordNumber, int passedChordProgression = 0)
         {
             string tempChord;
-            if (passedChordProgression == 0)
+            if (playType == PlayType.MAIN_CHORDS)
             {
                 tempChord = mainProgression[passedChordNumber].ChordName;
             }
-            else
-            {                           //3        //4
-                tempChord = alternativeChordProgressions[passedChordProgression - 1][passedChordNumber].ChordName;
+            else if (playType == PlayType.ALTERNATIVE_CHORDS)
+            {                           
+                tempChord = alternativeChordProgressions[passedChordProgression][passedChordNumber].ChordName;
             }
+            else{
+                tempChord =  allChordsInKey[passedChordNumber].ChordName;
+            }
+            
             return tempChord;
         }
-        public string[] getChordsInKey()
-        {
-            string[] tempChordName = new string[7];
-
-            for (int i = 0; i < tempChordName.Length; i++)
-            {
-                tempChordName[i] += allChordsInKey[i].ChordName;
-            }
-
-            return tempChordName;
-        }
-        public int getKeyChord(int id)
+        /*public int getKeyChord(int id)
         {
 
             return allChordsInKey[id].BaseNoteDetails.MidiNumber;
-        }
+        }*/
         public int playNote(int passedChordNumber, int passedNoteNumber, PlayType playType, int passedChordProgression=0) {
             Note[] tempNote;
 
