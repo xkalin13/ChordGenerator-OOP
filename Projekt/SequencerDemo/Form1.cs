@@ -14,17 +14,17 @@ namespace SequencerDemo
 {
     public partial class Form1 : Form
     {
-        Generator g = new Generator();
+        readonly Generator g = new Generator();
 
-        private bool playing = false;
+        private readonly bool playing = false;
 
         private bool closing = false;
 
         public OutputDevice outDevice;
 
-        private int outDeviceID = 0;
+        private readonly int outDeviceID = 0;
 
-        private OutputDeviceDialog outDialog = new OutputDeviceDialog();
+        private readonly OutputDeviceDialog outDialog = new OutputDeviceDialog();
 
         public Form1()
         {
@@ -109,7 +109,7 @@ namespace SequencerDemo
             }
         }
 
-        private void pianoControl1_PianoKeyDown(object sender, PianoKeyEventArgs e)
+        private void PianoControl1_PianoKeyDown(object sender, PianoKeyEventArgs e)
         {
             #region Guard
 
@@ -123,7 +123,7 @@ namespace SequencerDemo
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, e.NoteID, 127));
         }
 
-        private void pianoControl1_PianoKeyUp(object sender, PianoKeyEventArgs e)
+        private void PianoControl1_PianoKeyUp(object sender, PianoKeyEventArgs e)
         {
             #region Guard
 
@@ -136,7 +136,7 @@ namespace SequencerDemo
 
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, e.NoteID, 0));
         }
-        private void playNote(int note,int volume = 127) {
+        private void PlayNote(int note,int volume = 127) {
 
             if (playing)
             {
@@ -147,7 +147,7 @@ namespace SequencerDemo
             //outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, note, volume));
         }
 
-        private void generateChords_Click(object sender, EventArgs e)
+        private void GenerateChords_Click(object sender, EventArgs e)
         {
             try
             {
@@ -164,119 +164,119 @@ namespace SequencerDemo
             }
         }
 
-        private void play1_Click(object sender, EventArgs e)
+        private void Play1_Click(object sender, EventArgs e)
         {
-            playProgression(PlayType.ALTERNATIVE_CHORDS,0);
+            PlayProgression(PlayType.ALTERNATIVE_CHORDS,0);
         }
 
-        private void play2_Click(object sender, EventArgs e)
+        private void Play2_Click(object sender, EventArgs e)
         {
-            playProgression(PlayType.ALTERNATIVE_CHORDS,1);
+            PlayProgression(PlayType.ALTERNATIVE_CHORDS,1);
         }
 
-        private void play3_Click(object sender, EventArgs e)
+        private void Play3_Click(object sender, EventArgs e)
         {
-            playProgression( PlayType.ALTERNATIVE_CHORDS,2);
+            PlayProgression( PlayType.ALTERNATIVE_CHORDS,2);
         }
         private void PlayProgressionBtn_Click(object sender, EventArgs e)
         {
-            playProgression(PlayType.MAIN_CHORDS);
+            PlayProgression(PlayType.MAIN_CHORDS);
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playMainChord(0);
+            PlayMainChord(0);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playMainChord(1);
+            PlayMainChord(1);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playMainChord(2);
+            PlayMainChord(2);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playMainChord(3);
+            PlayMainChord(3);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Button5_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(0, 0);
+            PlayAlternativeChord(0, 0);
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void Button6_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(1, 0);
+            PlayAlternativeChord(1, 0);
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void Button7_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(2, 0);
+            PlayAlternativeChord(2, 0);
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void Button8_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(3, 0);
+            PlayAlternativeChord(3, 0);
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void Button9_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(0, 1);
+            PlayAlternativeChord(0, 1);
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void Button10_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(1, 1);
+            PlayAlternativeChord(1, 1);
 
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void Button11_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(2, 1);
+            PlayAlternativeChord(2, 1);
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void Button12_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(3, 1);
+            PlayAlternativeChord(3, 1);
         }
 
-        private void button13_Click(object sender, EventArgs e)
+        private void Button13_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(0, 2);
+            PlayAlternativeChord(0, 2);
         }
 
-        private void button14_Click(object sender, EventArgs e)
+        private void Button14_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(1, 2);
+            PlayAlternativeChord(1, 2);
         }
 
-        private void button15_Click(object sender, EventArgs e)
+        private void Button15_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(2, 2);
+            PlayAlternativeChord(2, 2);
         }
 
-        private void button16_Click(object sender, EventArgs e)
+        private void Button16_Click(object sender, EventArgs e)
         {
             // akord|progression
-            playAlternativeChord(3, 2);
+            PlayAlternativeChord(3, 2);
         }
 
         private void RandomizeBtn_Click(object sender, EventArgs e)
@@ -288,72 +288,72 @@ namespace SequencerDemo
             this.mode.SelectedItem = progression[2];
             this.mood.SelectedItem = progression[3];
         }
-        private void button17_Click(object sender, EventArgs e)
+        private void Button17_Click(object sender, EventArgs e)
         {
-            playKeyChord(0);
+            PlayKeyChord(0);
         }
 
-        private void button18_Click(object sender, EventArgs e)
+        private void Button18_Click(object sender, EventArgs e)
         {
-            playKeyChord(1);
+            PlayKeyChord(1);
         }
 
-        private void button19_Click(object sender, EventArgs e)
+        private void Button19_Click(object sender, EventArgs e)
         {
-            playKeyChord(2);
+            PlayKeyChord(2);
         }
 
-        private void button20_Click(object sender, EventArgs e)
+        private void Button20_Click(object sender, EventArgs e)
         {
-            playKeyChord(3);
+            PlayKeyChord(3);
         }
 
-        private void button21_Click(object sender, EventArgs e)
+        private void Button21_Click(object sender, EventArgs e)
         {
-            playKeyChord(4);
+            PlayKeyChord(4);
         }
 
-        private void button22_Click(object sender, EventArgs e)
+        private void Button22_Click(object sender, EventArgs e)
         {
-            playKeyChord(5);
+            PlayKeyChord(5);
         }
 
-        private void button23_Click(object sender, EventArgs e)
+        private void Button23_Click(object sender, EventArgs e)
         {
-            playKeyChord(6);
+            PlayKeyChord(6);
         }
-        private void playChord(int chordNumber,PlayType playType, int alternativeProgressionId = 0) {
+        private void PlayChord(int chordNumber,PlayType playType, int alternativeProgressionId = 0) {
             for (int j = 0; j < 3; j++)
             {
-                playNote(g.playNote(chordNumber, j, playType, alternativeProgressionId));
+                PlayNote(g.playNote(chordNumber, j, playType, alternativeProgressionId));
                 //playNote(g.playNote(chordNumber, j, playType, alternativeProgressionId) +12);
             }
             
         }
-        private void playKeyChord(int chord) {
-            playChord(chord, PlayType.KEY_CHORDS);
+        private void PlayKeyChord(int chord) {
+            PlayChord(chord, PlayType.KEY_CHORDS);
         }
-        private void playMainChord(int chord) {
-            playChord(chord, PlayType.MAIN_CHORDS);
+        private void PlayMainChord(int chord) {
+            PlayChord(chord, PlayType.MAIN_CHORDS);
         }
-        private void playAlternativeChord(int chord, int progression)
+        private void PlayAlternativeChord(int chord, int progression)
         {
-            playChord(chord,PlayType.ALTERNATIVE_CHORDS,progression);
+            PlayChord(chord,PlayType.ALTERNATIVE_CHORDS,progression);
         }
-        private void playProgression(PlayType playType,int alternativeProgressionId=0)
+        private void PlayProgression(PlayType playType,int alternativeProgressionId=0)
         {
 
 
             for (int i = 0; i < 4; i++)//akordy
             {
                 //bass
-                playBass(i,playType, alternativeProgressionId);
-                playChord(i,playType,alternativeProgressionId);
+                PlayBass(i,playType, alternativeProgressionId);
+                PlayChord(i,playType,alternativeProgressionId);
                 Thread.Sleep(1000);
             }
         }
-        private void playBass(int chordNumber, PlayType playType, int alternativeProgressionId = 0) {
-            playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
+        private void PlayBass(int chordNumber, PlayType playType, int alternativeProgressionId = 0) {
+            PlayNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
            // playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId));//-24 je o 2 oktavy dolu
         }
         private void GenerateChords()
@@ -361,9 +361,9 @@ namespace SequencerDemo
 
             //g.GenerateChordProgression("C", "major", " ", "Cliché");
             g.GenerateChordProgression(key.Text, mode.Text, modificator.Text, mood.Text);
-            setChordNames();
+            SetChordNames();
         }
-        private void setChordNames()
+        private void SetChordNames()
         {
             //main
             button1.Text = g.getChordName(PlayType.MAIN_CHORDS, 0);
@@ -400,7 +400,5 @@ namespace SequencerDemo
             button22.Text = g.getChordName(PlayType.KEY_CHORDS, 5);
             button23.Text = g.getChordName(PlayType.KEY_CHORDS, 6);
         }
-
-
     }
 }
