@@ -12,7 +12,7 @@ namespace ChordGenerator
         public int InnerOffset { get; }
         public string OpositeMode { get; }
         public int[] StepsToNext { get; }
-        public ChordType[] ChordType { get; }
+        public Chord.ChordType[] ChordType { get; }
         public Mode(string name, int innerOffset, string opositeMode, int[] stepsToNext, ChordType[] chordType)
         {
             Name = name;

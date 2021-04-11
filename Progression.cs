@@ -43,41 +43,6 @@ namespace ChordGenerator
             }
             return actualChordProgression;
         }
-        public void recalculateAlternatives()
-        {
-            Chord[][] tempAlternativeProgression = new Chord[3][];
-
-            NoteDetails rootNoteDetails = getNoteDetails(actualBaseNote.ToString() + actualNoteModifier.HelpSign.ToString());
-            NoteDetails[] orderedNotes = getAllNotesInOrder(rootNoteDetails);
-
-            // kvinotvy kruh
-            NoteDetails[] circleOfFifths = getCircleOfFifths(rootNoteDetails);
-
-            // otocit kruh
-            NoteDetails[] innerCircle = rotateCircleOfFifths(circleOfFifths, actualMode.InnerOffset);
-            //molovy zaklad
-
-            Mode oppositeMode = new Mode();
-
-            for (int i = 0; i < chordModes.Length; i++)
-            {
-                if (chordModes[i].Name == actualMode.OpositeMode)
-                {
-                    oppositeMode = chordModes[i];
-                }
-            }
-
-            tempAlternativeProgression[0] = getProgressionFromBaseAndMode(innerCircle[0].NoteArray[0], oppositeMode);//tady
-
-            // +1 a -1 rotation
-            string[] bases = { circleOfFifths[1].NoteArray[0], circleOfFifths[circleOfFifths.Length - 1].NoteArray[0] };
-            for (int i = 0; i < bases.Length; i++)
-            {
-                tempAlternativeProgression[i + 1] = getProgressionFromBaseAndMode(bases[i], actualMode);
-            }
-
-            alternativeChordProgressions = tempAlternativeProgression;
-        }
         public void recalculateMainProgression()
         {
             Console.WriteLine("recalculateMainProgression");
@@ -85,17 +50,7 @@ namespace ChordGenerator
             Chord[] actualChordProgression = getProgressionFromBaseAndMode(rootNoteName, actualMode);//vklada string a
             mainProgression = actualChordProgression;
         }
-        public void GenerateChordProgression(string passedKey, string passedMode, string passedModificator, string passedProgression)
-        {
-            Console.WriteLine("GenerateChordProgression");
-            AssignVars();//inicializace dat            
-            setValues(passedKey[0], passedModificator[0], passedMode, passedProgression);//prvni char ze stringu
-
-            recalculateScale();
-            recalculateAllChordsInKey();
-            recalculateMainProgression();
-            recalculateAlternatives();
-        }
+        
 
 
     }

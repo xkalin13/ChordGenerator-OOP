@@ -16,6 +16,7 @@ namespace ChordGenerator
     public partial class Form1 : MetroSetForm
     {
         readonly Generator g = new Generator();
+        Player player = new Player();
 
         private readonly bool playing = false;
 
@@ -110,15 +111,7 @@ namespace ChordGenerator
             }
         }
 
-        private void PlayNote(int note, int volume = 127)
-        {
-
-            if (playing)
-            {
-                return;
-            }
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
-        }
+       
 
         private void GenerateChords_Click(object sender, EventArgs e)
         {
@@ -139,7 +132,7 @@ namespace ChordGenerator
 
         private void Play1_Click(object sender, EventArgs e)
         {
-            PlayProgression(PlayType.ALTERNATIVE_CHORDS, 0);
+            player.PlayProgression(PlayType.ALTERNATIVE_CHORDS, 0);
         }
 
         private void Play2_Click(object sender, EventArgs e)
@@ -316,28 +309,17 @@ namespace ChordGenerator
         {
             PlayChord(chord, PlayType.ALTERNATIVE_CHORDS, progression);
         }
-        private void PlayProgression(PlayType playType, int alternativeProgressionId = 0)
-        {
-
-
-            for (int i = 0; i < 4; i++)//akordy
-            {
-                //bass
-                PlayBass(i, playType, alternativeProgressionId);
-                PlayChord(i, playType, alternativeProgressionId);
-                Thread.Sleep(1000);
-            }
-        }
+        
         private void PlayBass(int chordNumber, PlayType playType, int alternativeProgressionId = 0)
         {
-            PlayNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
+            PlayNote(player.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
             // playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId));//-24 je o 2 oktavy dolu
         }
         private void GenerateChords()
         {
 
             //g.GenerateChordProgression("C", "major", " ", "Cliché");
-            g.GenerateChordProgression(key.Text, mode.Text, modificator.Text, mood.Text);
+            generator.GenerateChordProgression(key.Text, mode.Text, modificator.Text, mood.Text);
             SetChordNames();
         }
         private void SetChordNames()

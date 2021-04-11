@@ -12,13 +12,7 @@ namespace ChordGenerator
         public char HelpSign { get; }
         public char PreSign { get; }
 
-        public NoteModifiers(string name, int offset, char sign, char modify)
-        {
-            Name = name;
-            Offset = offset;
-            HelpSign = sign;
-            PreSign = modify;
-        }
+
 
 
         public NoteDetails getNoteDetails(string noteStr)//vrati konretni popis noty podle zadane noty
