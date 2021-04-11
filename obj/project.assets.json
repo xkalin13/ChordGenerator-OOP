@@ -1,0 +1,144 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "MetroSet_UI/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/MetroSet UI.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MetroSet UI.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "Sanford.Multimedia.Midi/6.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net20/Sanford.Multimedia.Midi.dll": {}
+        },
+        "runtime": {
+          "lib/net20/Sanford.Multimedia.Midi.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MetroSet_UI/2.0.0": {
+      "sha512": "7FO1rFTiht/j+xdvyRBQOv3JL8yoKBwQrrBuA/Zbz98sNIhgpNDO977ZumAz6TTfbuIT/4waSHsFBp01cXDDIA==",
+      "type": "package",
+      "path": "metroset_ui/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "MetroSet.png",
+        "lib/net45/MetroSet UI.dll",
+        "lib/netcoreapp3.1/MetroSet UI.dll",
+        "metroset_ui.2.0.0.nupkg.sha512",
+        "metroset_ui.nuspec"
+      ]
+    },
+    "Sanford.Multimedia.Midi/6.0.0": {
+      "sha512": "TS+yd+YD6Wxk00oqePNvm0+anWymrorLvdFeLYmtOb9v0VZi9NUm8yP3rxwX271DUz2ChkwAak+4ESKmc4YJGw==",
+      "type": "package",
+      "path": "sanford.multimedia.midi/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/Sanford.Multimedia.Midi.XML",
+        "lib/net20/Sanford.Multimedia.Midi.dll",
+        "sanford.multimedia.midi.6.0.0.nupkg.sha512",
+        "sanford.multimedia.midi.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "MetroSet_UI >= 2.0.0",
+      "Sanford.Multimedia.Midi >= 6.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\honza\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\honza\\Desktop\\Škola\\ProjektOOP\\ChordGenerator\\ChordGenerator.csproj",
+      "projectName": "ChordGenerator",
+      "projectPath": "C:\\Users\\honza\\Desktop\\Škola\\ProjektOOP\\ChordGenerator\\ChordGenerator.csproj",
+      "packagesPath": "C:\\Users\\honza\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\honza\\Desktop\\Škola\\ProjektOOP\\ChordGenerator\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\honza\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
+        "dependencies": {
+          "MetroSet_UI": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "Sanford.Multimedia.Midi": {
+            "target": "Package",
+            "version": "[6.0.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Balíček Sanford.Multimedia.Midi 6.0.0 se místo cílové verze rozhraní .NET Framework projektu .NETCoreApp,Version=v3.1 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "libraryId": "Sanford.Multimedia.Midi",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}

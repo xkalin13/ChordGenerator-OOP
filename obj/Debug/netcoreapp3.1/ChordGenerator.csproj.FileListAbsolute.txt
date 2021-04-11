@@ -1,0 +1,19 @@
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.exe
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.deps.json
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.runtimeconfig.json
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.runtimeconfig.dev.json
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.dll
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\ChordGenerator.pdb
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\MetroSet UI.dll
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\bin\Debug\netcoreapp3.1\Sanford.Multimedia.Midi.dll
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.GenerateResource.cache
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.AssemblyInfoInputs.cache
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.AssemblyInfo.cs
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.CoreCompileInputs.cache
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.CopyComplete
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.dll
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.pdb
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.genruntimeconfig.cache
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.Properties.Resources.resources
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.Form1.resources
+C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.csprojAssemblyReference.cache

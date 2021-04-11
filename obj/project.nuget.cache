@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "tw1lM8okOzSs63mGGBjWFzGUAgVHXtVoCtHRoTArUh+QKU0xNMcmyNJ3Dy+Y0lp7U5oKJoW1yzqc6WqieMfHHw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\honza\\Desktop\\Škola\\ProjektOOP\\ChordGenerator\\ChordGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\honza\\.nuget\\packages\\metroset_ui\\2.0.0\\metroset_ui.2.0.0.nupkg.sha512",
+    "C:\\Users\\honza\\.nuget\\packages\\sanford.multimedia.midi\\6.0.0\\sanford.multimedia.midi.6.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Balíček Sanford.Multimedia.Midi 6.0.0 se místo cílové verze rozhraní .NET Framework projektu .NETCoreApp,Version=v3.1 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "libraryId": "Sanford.Multimedia.Midi",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}
