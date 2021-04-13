@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="411.99095"
+     inkscape:cy="625.00333"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1016"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Vrstva 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g904">
+      <g
+         transform="translate(0,1.0585128)"
+         id="g870">
+        <rect
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.58364064;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect824"
+           width="70.158249"
+           height="1.8708867"
+           x="91.138908"
+           y="123.6757" />
+        <rect
+           y="128.95427"
+           x="93.143425"
+           height="1.8708867"
+           width="68.153732"
+           id="rect826"
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.57524246;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.46968353;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect828"
+           width="45.435822"
+           height="1.8708867"
+           x="115.86134"
+           y="144.78998" />
+        <rect
+           y="134.23285"
+           x="95.816124"
+           height="1.8708867"
+           width="65.481033"
+           id="rect830"
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5638504;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.47790018;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect832"
+           width="47.039436"
+           height="1.8708867"
+           x="114.25772"
+           y="139.51141" />
+        <rect
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.51512939;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect834"
+           width="4.3627324"
+           height="21.944839"
+           x="156.93442"
+           y="123.6757" />
+      </g>
+      <text
+         id="text817"
+         y="133.29695"
+         x="54.233719"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.34730625px;line-height:1.25;font-family:'RocknRoll One';-inkscape-font-specification:'RocknRoll One';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28368264"
+         xml:space="preserve"><tspan
+           style="fill:#000000;fill-opacity:1;stroke-width:0.28368264"
+           y="133.29695"
+           x="54.233719"
+           id="tspan815"
+           sodipodi:role="line">Chord</tspan><tspan
+           id="tspan819"
+           style="fill:#000000;fill-opacity:1;stroke-width:0.28368264"
+           y="147.48108"
+           x="54.233719"
+           sodipodi:role="line">Generator</tspan></text>
+    </g>
+  </g>
+</svg>
