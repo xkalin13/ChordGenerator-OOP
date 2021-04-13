@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChordGenerator
 {
-    public class Note //notograficky zapis + notamidi & notaarray
+    public partial class Note //notograficky zapis + notamidi & notaarray
     {
         public string RealNoteName { get; }
         public NoteDetails NoteDetails { get; }

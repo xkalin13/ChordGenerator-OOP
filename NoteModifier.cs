@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChordGenerator
 {
-    public class NoteModifier
+    public struct NoteModifier
     {
         public string Name { get; }
         public int Offset { get; }
@@ -17,11 +17,6 @@ namespace ChordGenerator
             Offset = offset;
             HelpSign = sign;
             PreSign = modify;
-        }
-
-        public NoteModifier()
-        {
-
         }
     }
 }

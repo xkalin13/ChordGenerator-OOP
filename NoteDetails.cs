@@ -16,7 +16,10 @@ namespace ChordGenerator
             NoteArray = noteArray;
         }
 
+        public NoteDetails()
+        {
 
+        }
 
         public static NoteDetails GetNoteDetails(string noteStr)//vrati konretni popis noty podle zadane noty
         {

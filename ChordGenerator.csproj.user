@@ -1,6 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\DeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\InputDeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\OutputDeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\PianoControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\PianoControl.PianoKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\Sanford.Multimedia.Midi\UI\PianoControlDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\SequencerDemo\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Backup\SequencerDemo\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\DeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\InputDeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\OutputDeviceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\PianoControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\PianoControl.PianoKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\Sanford.Multimedia.Midi\UI\PianoControlDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\SequencerDemo\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ChordGenerator-OOP\Projekt\SequencerDemo\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
