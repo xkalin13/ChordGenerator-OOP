@@ -18,5 +18,10 @@ namespace ChordGenerator
             HelpSign = sign;
             PreSign = modify;
         }
+
+        public NoteModifier()
+        {
+
+        }
     }
 }
