@@ -16,6 +16,11 @@ namespace ChordGenerator
             Steps = steps;
         }
 
+        public Progression()
+        {
+
+        }
+
         public Chord[] GetProgressionFromBaseAndMode(string passedRootNote, Mode passedMode)
         {
             int[] absSteps = GetAbsoluteSteps(passedMode);

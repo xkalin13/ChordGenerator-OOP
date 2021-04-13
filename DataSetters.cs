@@ -14,9 +14,9 @@ namespace ChordGenerator
     public partial class DataSetters
     {
 
-        
+
         //Vars & instances
-        Random rnd = new Random();
+        protected readonly Random rnd = new Random();
         public NoteModifier[] noteModifiers = new NoteModifier[3];
         public NoteDetails[] noteDetails = new NoteDetails[12];
         public Mode[] chordModes = new Mode[2];
