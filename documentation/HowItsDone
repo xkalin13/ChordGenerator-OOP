@@ -1,0 +1,24 @@
+// mame listy
+	Basove noty - z tech udelame key pro scale
+	Progressions - tady je presny popis kolikatou notu pouzit pro dalsi ton
+	Modes - z tohoto vybere jestli je dur nebo moll
+	Scale - pole not a vseho
+	Arpeggio - 
+
+//Volby v UI
+	Note - zakladni nota
+	NoteModifier - krizek ,becko, nebo neutralnost noty
+	Mode - vyber dur/moll
+	Arpeggio - jaky rytmus bude hrat pri hrani akordu
+
+//metody
+	Scale - vytvori ktere noty patri do toniny
+	Chords in scale - vypise  akordy v tonine
+	Random - vybere nahodne bass, progression a mode
+	Recalculate - ??? Prepise jiz vygenerovane itemy ???
+	notesInChord - vypise noty v akordu
+	playProgression - zahraje se zadanym arpegio BPM progression
+	getAllNotesInOrder - seradi pole not
+	getCircleOfFifths - doplni 12 not od zakladni
+	rotateCircleOfFifths - posune pole o urcity offset
+	getProgressionFromBaseAndMode - vytvori progress z basu a
