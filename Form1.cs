@@ -238,12 +238,12 @@ namespace ChordGenerator
             for (int i = 0; i < 4; i++)//akordy
             {
                 //bass
-                //PlayBass(i, playType, alternativeProgressionId);
+                //PlayBass(i, playType, alternativeProgressionId);//TODO
                 PlayChord(i, playType, alternativeProgressionId);
-                Thread.Sleep(800);
+                Thread.Sleep(100);
             }
         }
-        /*private void PlayBass(int chordNumber, Player.PlayType playType, int alternativeProgressionId = 0)
+        /*private void PlayBass(int chordNumber, Player.PlayType playType, int alternativeProgressionId = 0)//TODO
         {
             PlayNote(Player.playNote(chordNumber, 0, playType, alternativeProgressionId) - 12);
             // playNote(g.playNote(chordNumber, 0, playType, alternativeProgressionId));//-24 je o 2 oktavy dolu

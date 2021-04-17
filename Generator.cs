@@ -12,15 +12,12 @@ namespace ChordGenerator
 
     public partial class Generator
     {
-        public Generator()
-        {
 
-        }
 
         Random rnd = new Random();
 
         private char selectedRootNote;
-        public char selectedModifier;
+        private char selectedModifier;
         private string selectedMode;
         private List<int> selectedProgression;
 
@@ -30,42 +27,43 @@ namespace ChordGenerator
         public List<Chord> chordsInKey;
         public List<Chord> mainProgression;
 
-
+        public Generator() { }
         public void RandomizeProgression()
         {
             Console.WriteLine("getRandomizedProgression");
             selectedRootNote = Note.publicRootNotes.ElementAt(getRandomItem(Note.publicRootNotes.Length));
-
             selectedModifier = Note.publicModifiers.ElementAt(getRandomItem(Note.publicModifiers.Count)).Value;
-
             selectedMode = Chord.publicModes.ElementAt(getRandomItem(Chord.publicModes.Count)).Name;
-
             selectedProgression = Chord.publicProgressions.ElementAt(getRandomItem(Chord.publicProgressions.Count)).Value.ToList();
-
         }
         public string[] GetProgressionInfo()
         {
+            string mood = "";
 
-            return new string[] { selectedRootNote.ToString(), selectedModifier.ToString(), selectedMode, Chord.publicProgressions.FirstOrDefault(x => x.Value == selectedProgression.ToArray()).Key };
+            foreach (var item in Chord.publicProgressions) {
+                if (Enumerable.SequenceEqual(item.Value, selectedProgression)) {
+                    mood = item.Key;
+                }
+            }
+
+            return new string[] { 
+                selectedRootNote.ToString(),
+                selectedModifier.ToString(),
+                selectedMode,
+                mood };
 
         }
-
-
         public int getRandomItem(int length)
         {
             return rnd.Next(0, length);
         }
-
-
         public void GenerateChordProgression(string rootNote, string modifier, string mode, string progression)
         {
             Console.WriteLine("GenerateChordProgression");
-            // AssignVars();//inicializace dat            
-            SetValues(rootNote[0], modifier[0], mode, progression);//prvni char ze stringu
+       
+            SetValues(rootNote[0], modifier[0], mode, progression);
 
-            //recalculate
             scale = Note.RecalculateScale(selectedRootNote.ToString() + selectedModifier, selectedMode);
-
             chordsInKey = Chord.RecalculateAllChordsInKey(selectedMode, scale);
             mainProgression = Chord.RecalculateMainProgression(selectedProgression,chordsInKey);
 
@@ -83,15 +81,11 @@ namespace ChordGenerator
             Console.WriteLine("-----base note-----");
             selectedRootNote = rootNote;
             Console.WriteLine("-----modificator-----");
-            //nastaveni modifikatoru
             selectedModifier = modifier;
-
             Console.WriteLine("-----mode-----");
             selectedMode = mode;
-
             Console.WriteLine("-----progression-based-on-mood-----");
-            //nastaveni cadence
-            selectedProgression = Chord.publicProgressions[progression].ToList();//value from key
+            selectedProgression = Chord.publicProgressions[progression].ToList();
 
         }
         public string GetChordName(Player.PlayType playType, int passedChordNumber, int passedChordProgression = 0)

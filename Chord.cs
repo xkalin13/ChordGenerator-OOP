@@ -28,10 +28,10 @@ namespace ChordGenerator
         public Note baseNote;
         public Mode chordType;
 
-        public Chord(string name,Note baseNote) {
+        public Chord(string name,Note baseNote, List<Note> chordNotes) {
             this.name = name;
             this.baseNote = baseNote;
-
+            this.chordNotes = chordNotes;
 
         }
 
@@ -62,27 +62,29 @@ namespace ChordGenerator
             Mode tmpMode = publicModes.Find(x => x.Name == mode);
 
             int[] absSteps = GetAbsoluteSteps(mode);
-            List<Note> tmpScale = Note.GetScale(rootNote, absSteps);//problem
+            List<Note> tmpScale = Note.GetScale(rootNote, absSteps);
 
-            List<Chord> chordsInKey = new List<Chord>();//pole akordu ve stupnici
+            List<Chord> chordsInKey = new List<Chord>();
 
             for (int i = 0; i < tmpScale.Count; i++)
             {
-                chordsInKey.Add(new Chord(tmpScale[i].name + tmpMode.ChordType[i], tmpScale[i]));
+                chordsInKey.Add(new Chord(tmpScale[i].name + tmpMode.ChordType[i], tmpScale[i],Chord.GetChordNotes(tmpScale,i)));
             } 
 
             return GetProgression(mood, chordsInKey);
         }
+
+        
         public static List<Chord> GetProgression(List<int> mood, List<Chord> chordsInKey)
         {
-            List<Chord> actualChordProgression = new List<Chord>();//pole akordu ktere vezme stupnici a vezme jen ty ktere maji kadenci
-            for (int i = 0; i < mood.Count; i++)//TODO
+            List<Chord> actualChordProgression = new List<Chord>();
+            for (int i = 0; i < mood.Count; i++)
             {
-                actualChordProgression.Add(chordsInKey[mood[i]]);//vrati ktery tempChord je na kroku step 
+                actualChordProgression.Add(chordsInKey[mood[i]]);
             }
             return actualChordProgression;
         }
-        public static List<Chord> RecalculateAllChordsInKey(string modeName, List<Note> scale)//cdefgab
+        public static List<Chord> RecalculateAllChordsInKey(string modeName, List<Note> scale)
         {
             Mode tmpMode = publicModes.Find(x => x.Name == modeName);
 
@@ -93,7 +95,8 @@ namespace ChordGenerator
                 //name /mode /details
                 tmpChordsInKey.Add(new Chord(
                         scale[i].name + tmpMode.ChordType[i],
-                        scale[i]
+                        scale[i],
+                        Chord.GetChordNotes(scale,i)
                         ));
             }
            return tmpChordsInKey;
@@ -117,7 +120,6 @@ namespace ChordGenerator
         {
             Console.WriteLine("recalculateMainProgression");
             return GetProgression(mood, chordsInKey);
-            //return GetProgressionFromBaseAndMode(note, mode, mood);//vklada string a
             
         }
         public static List<List<Chord>> RecalculateAlternatives(string note, string mode, List<int> mood)
@@ -133,7 +135,7 @@ namespace ChordGenerator
             // otocit kruh
             int offset = publicModes.Find(x => x.Name == mode).Offset;
 
-            List<Note> innerCircle = Note.RotateCircleOfFifths(Note.GetCircleOfFifths(rootNoteDetails), offset);//obrati circle of fifths
+            List<Note> innerCircle = Note.RotateCircleOfFifths(Note.GetCircleOfFifths(rootNoteDetails), offset);
 
             string oppositeMode = publicModes.Find(x => x.Name != mode).Name;
 
@@ -146,82 +148,27 @@ namespace ChordGenerator
 
             return tempAlternativeProgression;
         }
-
-        public List<Note> GetChordNotes()
+        public List<Note> GetChord() {
+            return chordNotes;
+        }
+        public static List<Note> GetChordNotes(List<Note> scale, int baseNoteIndex)
         {
-            
 
-            int baseNoteIndex = -1;
-
-            List<Note> tmpScaleNotes = Generator.scale;
+            List<Note> tmpScaleNotes = scale;
 
             List<Note> notesInChord = new List<Note>();
 
-            for (int i = 0; i < Generator.scale.Count; i++)//
+            for (int i = 0; i < 3; i++)
             {
-                if (Generator.scale[i].midiNumber == baseNote.midiNumber)
+                notesInChord.Add(tmpScaleNotes[baseNoteIndex]);
+                baseNoteIndex += 2;
+
+                if (baseNoteIndex >= scale.Count)
                 {
-                    baseNoteIndex = i;
-                    break;
+                    baseNoteIndex -= scale.Count;
                 }
             }
-
-            if (baseNoteIndex >= 0)
-            {
-
-
-                for (int i = 0; i < 3; i++)
-                {
-                    notesInChord.Add(tmpScaleNotes[baseNoteIndex]);
-                    baseNoteIndex += 2;
-
-                    if (baseNoteIndex >= Generator.scale.Count)
-                    {
-                        baseNoteIndex -= Generator.scale.Count;
-                    }
-                }
-                return notesInChord;
-            }
-            else
-            {
-                Console.WriteLine("OFF-KEY");
-
-                List<Note> allNotes = Note.GetAllNotesInOrder(baseNote);
-
-                List<Note> formattedNotes = new List<Note>();//3
-                //nota je mimo stupnici 
-
-                notesInChord.Add(allNotes.ElementAt(0));
-                notesInChord.Add(allNotes.ElementAt(4));
-                notesInChord.Add(allNotes.ElementAt(7));
-
-                int indexer = 0;
-
-                for (int i = 0; i < 3; i++)
-                {
-                    Note tmpNote = notesInChord[i];
-
-                    for (int j = 0; j < tmpNote.noteArray.Length; j++)
-                    {
-                        string noteVal = tmpNote.noteArray[j];
-
-                        if (name[0] == noteVal[0])
-                        {
-                            formattedNotes.Add(new Note(tmpNote.midiNumber, tmpNote.noteArray));
-                            indexer++;
-                            break;
-                        }
-                    }
-                    if (indexer <= i)
-                    {
-                        formattedNotes.Add(new Note(tmpNote.midiNumber, tmpNote.noteArray));
-                        indexer++;
-                    }
-                }
-
-                return formattedNotes;
-            }
-
+            return notesInChord;
 
         }
 

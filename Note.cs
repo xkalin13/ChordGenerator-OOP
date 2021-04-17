@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ChordGenerator
 {
-    public class Note //notograficky zapis + notamidi & notaarray
+    public class Note 
     {
         public static char[] publicRootNotes = new char[] { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
         public static Dictionary<int, char> publicModifiers = new Dictionary<int, char>();
@@ -21,7 +21,7 @@ namespace ChordGenerator
             this.noteArray = noteArray;
         }
 
-        public static void SetModifiers() {//TODO
+        public static void SetModifiers() { 
             publicModifiers.Add(-1, 'b');
             publicModifiers.Add(0, ' ');
             publicModifiers.Add(1, '#');

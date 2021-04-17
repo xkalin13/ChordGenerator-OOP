@@ -9,7 +9,7 @@ using Sanford.Multimedia.Midi.UI;
 
 namespace ChordGenerator
 {
-    public class Player //TODO implement player
+    public class Player //TODO implement rythm
     {
 
         public OutputDevice outDevice = new OutputDevice(0);
@@ -32,31 +32,6 @@ namespace ChordGenerator
         }
 
 
-        /*private void PlayNote(int note, int volume = 127)
-        {
-
-            if (playing)
-            {
-                return;
-            }
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
-        }*/
-     
-        /*public void PlayProgression(PlayType playType, int alternativeProgressionId = 0)
-        {
-
-
-            for (int i = 0; i < 4; i++)//akordy
-            {
-                //bass
-                PlayBass(i, playType, alternativeProgressionId);
-                PlayChord(i, playType, alternativeProgressionId);
-                Thread.Sleep(1000);
-            }
-        }*/
-
-
-
         public void PlayChords(PlayType playType, int chordInOrder, int alternativeIndex)
         {
 
@@ -75,14 +50,14 @@ namespace ChordGenerator
         }
         public void PlayChord(Chord chord) {
             
-            foreach ( Note note in chord.GetChordNotes())
+            foreach ( Note note in chord.GetChord())
             {
 
                 PlayNote(note.midiNumber);
 
             }
-            Thread.Sleep(500);
-            foreach (Note note in chord.GetChordNotes())
+            Thread.Sleep(800);
+            foreach (Note note in chord.GetChord())
             {
 
                 StopNote(note.midiNumber);
