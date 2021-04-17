@@ -1,13 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows.Forms;
+using Sanford.Multimedia.Midi;
+using Sanford.Multimedia.Midi.UI;
+
 
 namespace ChordGenerator
 {
-    class Player
+    public class Player //TODO implement player
     {
 
-        private void PlayNote(int note, int volume = 127)
+        public OutputDevice outDevice = new OutputDevice(0);
+
+        private readonly OutputDeviceDialog outDialog = new OutputDeviceDialog();
+
+
+        public Generator generator;
+
+
+        public enum PlayType
+        {
+            KEY_CHORDS,
+            MAIN_CHORDS,
+            ALTERNATIVE_CHORDS
+        };
+
+        public Player(Generator generator) {
+            this.generator = generator;
+        }
+
+
+        /*private void PlayNote(int note, int volume = 127)
         {
 
             if (playing)
@@ -15,9 +40,9 @@ namespace ChordGenerator
                 return;
             }
             outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
-        }
+        }*/
      
-        public void PlayProgression(PlayType playType, int alternativeProgressionId = 0)
+        /*public void PlayProgression(PlayType playType, int alternativeProgressionId = 0)
         {
 
 
@@ -28,62 +53,79 @@ namespace ChordGenerator
                 PlayChord(i, playType, alternativeProgressionId);
                 Thread.Sleep(1000);
             }
-        }
+        }*/
 
 
 
-        public int playNote(int passedChordNumber, int passedNoteNumber, PlayType playType, int passedChordProgression = 0)
+        public void PlayChords(PlayType playType, int chordInOrder, int alternativeIndex)
         {
-            Note[] tempNote;
-
-
 
             if (playType == PlayType.MAIN_CHORDS)
             {
-                tempNote = playMainChord(passedChordNumber);
+                PlayMainChord(chordInOrder);
             }
             else if (playType == PlayType.KEY_CHORDS)
             {
-                tempNote = playKeyChord(passedChordNumber);
+               PlayKeyChord(chordInOrder);
             }
-            else if (playType == PlayType.ALTERNATIVE_CHORDS)
+            else{
+               PlayAlternativeChord(chordInOrder, alternativeIndex);
+            }
+
+        }
+        public void PlayChord(Chord chord) {
+            
+            foreach ( Note note in chord.GetChordNotes())
             {
-                tempNote = playAlternativeChord(passedChordNumber, passedChordProgression);
+
+                PlayNote(note.midiNumber);
+
             }
-            else
+            Thread.Sleep(500);
+            foreach (Note note in chord.GetChordNotes())
             {
-                tempNote = null;
+
+                StopNote(note.midiNumber);
+
             }
-            return tempNote[passedNoteNumber].NoteDetails.MidiNumber;
+            
         }
-        public Note[] playMainChord(int passedChordNumber)
+        public void PlayMainChord(int passedChordNumber)
         {
-            return notesInChord(mainProgression[passedChordNumber]);
+
+            PlayChord(generator.mainProgression[passedChordNumber]);
         }
-        public Note[] playKeyChord(int passedChordNumber)
+        public void PlayAlternativeChord(int progressionId,int passedChordNumber)
         {
-            return notesInChord(allChordsInKey[passedChordNumber]);
+
+            PlayChord(generator.alternativeProgressions[passedChordNumber][progressionId]);
         }
-        public Note[] playAlternativeChord(int passedChordNumber, int passedChordProgression)
+        public void PlayKeyChord(int passedChordNumber)
         {
-            return notesInChord(alternativeChordProgressions[passedChordProgression][passedChordNumber]);
+
+            PlayChord(generator.chordsInKey[passedChordNumber]);
         }
 
-        public void playProgression()
+        private void PlayNote(int note, int volume = 127)
         {
-            for (int i = 0; i < mainProgression.Length; i++)//za kazdy tempChord
-            {
-                var chord = mainProgression[i];
-                Note[] tempChord = notesInChord(chord);
 
-                foreach (var note in tempChord)
-                {
-                    //playNote(chord.BaseNoteDetails.MidiNumber);
-                    //scaler[i].RealNoteName + mode.ChordType[i].Symbol, mode.ChordType[i]
-                    //Console.WriteLine(note.RealNoteName + note.NoteDetails.MidiNumber);
-                }//za kazdou notu z akordu
-            }
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
+
+
         }
+        private void StopNote(int midi) {
+            
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff,0, midi));
+        }
+        public void PianoControl1_PianoKeyUp(object sender, PianoKeyEventArgs e)
+        {
 
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, e.NoteID, 0));
+        }
+        public void PianoControl1_PianoKeyDown(object sender, PianoKeyEventArgs e)
+        {
+
+            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, e.NoteID, 127));
+        }
     }
 }

@@ -1,203 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ChordGenerator
 {
-    class Note //notograficky zapis + notamidi & notaarray
+    public class Note //notograficky zapis + notamidi & notaarray
     {
-        public string RealNoteName { get; }
-        public NoteDetails NoteDetails { get; }
+        public static char[] publicRootNotes = new char[] { 'C', 'D', 'E', 'F', 'G', 'A', 'B' };
+        public static Dictionary<int, char> publicModifiers = new Dictionary<int, char>();
+        public static List<Note> publicDetails = new List<Note>();
 
-        public Note(string realNoteName, NoteDetails noteDetails)
-        {
-            RealNoteName = realNoteName;
-            NoteDetails = noteDetails;
+        public string name { get; set; }
+        public int midiNumber;
+        public int offset;
+        public string[] noteArray;
+
+        public Note(int midiNumber, string[] noteArray) {
+            this.midiNumber = midiNumber;
+            this.noteArray = noteArray;
         }
 
-        public string prettifyNoteStr(string passedNote)//bere zakladni notu ||| D. a vraci string D
-        {
-            Console.WriteLine("prettifyNoteStr");
-            string RealNoteName = passedNote;
-
-            for (int i = 0; i < noteModifiers.Length; i++)
-            {
-                //pro 3 znamenka
-                NoteModifiers tmpNoteModifier = noteModifiers[i];
-
-                if (RealNoteName.Contains(tmpNoteModifier.HelpSign.ToString()))//je tam znamenko?
-                {
-                    // replace v  "C." '.' za  ' '
-                    RealNoteName = RealNoteName.Replace(tmpNoteModifier.HelpSign.ToString(), tmpNoteModifier.PreSign.ToString());
-
-                    break;//z foru
-                }
-            }
-
-            return RealNoteName;
+        public static void SetModifiers() {//TODO
+            publicModifiers.Add(-1, 'b');
+            publicModifiers.Add(0, ' ');
+            publicModifiers.Add(1, '#');
         }
-        public Note[] notesInChord(Chord passedChord)
-        {
+        public static void SetNoteDetails() {
+            publicDetails.Add(new Note(60, new string[] { "C ", "B#", "Dbb" }));
+            publicDetails.Add(new Note(49, new string[] { "C#", "Db" }));
+            publicDetails.Add(new Note(50, new string[] { "D ", "C##", "Ebb" }));
+            publicDetails.Add(new Note(51, new string[] { "D#", "Eb", "Fbb" }));
 
-            int baseNoteIndex = -1;
-            Note[] tmpScaleNotes = actualScaleNotes;//mistni actualScaleNotes
-            for (int i = 0; i < tmpScaleNotes.Length; i++)
-            {
-                Note tmpScaleNote = tmpScaleNotes[i];
-                if (tmpScaleNote.NoteDetails.MidiNumber == passedChord.BaseNoteDetails.MidiNumber)
-                {
-                    baseNoteIndex = i;
-                    break;
-                }
-            }
+            publicDetails.Add(new Note(52, new string[] { "E ", "Fb", "D##" }));
+            publicDetails.Add(new Note(53, new string[] { "F ", "E#", "Gbb" }));
+            publicDetails.Add(new Note(54, new string[] { "F#", "Gb" }));
+            publicDetails.Add(new Note(55, new string[] { "G ", "F##", "Abb" }));
 
-            if (baseNoteIndex >= 0)
-            {
-                // get [0, 2, 4] 
-                Note[] notesInChord = new Note[3];
-
-                //prvni nota je base
-                notesInChord[0] = tmpScaleNotes[baseNoteIndex];
-
-                int secondNote = baseNoteIndex + 2;
-                if (secondNote >= tmpScaleNotes.Length)
-                {
-                    secondNote -= tmpScaleNotes.Length;
-                }
-                //druha nota je vypoctena 0 + 2noty
-                notesInChord[1] = actualScaleNotes[secondNote];
-
-
-                int thirdNote = baseNoteIndex + 4;
-                if (thirdNote >= tmpScaleNotes.Length)
-                {
-                    thirdNote -= tmpScaleNotes.Length;
-                }
-                //treti nota je 0+4noty
-                notesInChord[2] = tmpScaleNotes[thirdNote];
-
-                return notesInChord;
-            }
-            else
-            {
-                Console.WriteLine("OFF-KEY");
-
-                NoteDetails[] allNotes = getAllNotesInOrder(passedChord.BaseNoteDetails);
-                Note[] formattedNotes = new Note[3];
-                NoteDetails[] notesInChord = new NoteDetails[3];
-                //nota je mimo stupnici 
-
-                notesInChord[0] = allNotes[0];
-                notesInChord[1] = allNotes[4];
-                notesInChord[2] = allNotes[7];
-
-                int indexer = 0;
-
-                for (int i = 0; i < notesInChord.Length; i++)
-                {
-                    NoteDetails tmpNote = notesInChord[i];
-
-                    for (int j = 0; j < tmpNote.NoteArray.Length; j++)
-                    {
-                        string noteVal = tmpNote.NoteArray[j];
-
-                        if (passedChord.ChordName[0] == noteVal[0])
-                        {
-                            formattedNotes[indexer] = new Note(prettifyNoteStr(noteVal), tmpNote);
-                            indexer++;
-                            break;//vyskoci z prvniho foru
-                        }
-                    }
-                    if (indexer <= i)// neni plny
-                    {
-                        string noteVal = tmpNote.NoteArray[0];
-                        string name = prettifyNoteStr(noteVal);
-                        formattedNotes[indexer] = new Note(name, tmpNote);
-                        indexer++;
-                    }
-                }
-
-                return formattedNotes;
-            }
+            publicDetails.Add(new Note(56, new string[] { "G#", "Ab" }));
+            publicDetails.Add(new Note(57, new string[] { "A ", "G##", "Bbb" }));
+            publicDetails.Add(new Note(58, new string[] { "A#", "Bb", "Cbb" }));
+            publicDetails.Add(new Note(59, new string[] { "B ", "Cb", "A##" }));
         }
-        public NoteDetails[] getAllNotesInOrder(NoteDetails rootNoteDetails)
+
+        public static List<Note> GetScale(string rootNoteName, int[] steps)
         {
-            Console.WriteLine("getAllNotesInOrder");
 
-            //pole tonu =  midi+jmenatonu
-            NoteDetails[] orderedNotes = new NoteDetails[noteDetails.Length];
-
-            for (int i = 0; i < noteDetails.Length; i++)//projede vsechny noty a zacne vkladat notu do noveho poleNot az teprve od prvniho tonu |G | = G A B C---
-            {
-
-                NoteDetails note = noteDetails[i];
-
-                //pokud se shoduje midi z konkretni noty a zakladni noty
-                if (note.MidiNumber == rootNoteDetails.MidiNumber)//pokud preskoci vrati se na zacatek k |C|
-                {
-                    int startIndex = i;
-                    int j = 0;
-                    while (j < noteDetails.Length)//kolikata celkova nota pole not to je 
-                    {
-
-                        int trueIndex = startIndex + j;
-                        // pokud pretece pole odecte se delka aby se jelo znovu
-
-                        if (trueIndex >= noteDetails.Length)
-                        {
-                            trueIndex -= noteDetails.Length;
-                        }
-
-                        orderedNotes[j] = noteDetails[trueIndex];
-                        j++;
-                    }
-                    break;
-                    // nasel midiNumber
-                }
-            }
-            return orderedNotes;
-        }
-        public Note[] getScale(string rootNoteName, int[] steps)//vrati pole not spravne zapsanych s midi num podle poradi
-        {
-            Console.WriteLine("getScale");
-
-            NoteDetails rootNoteDetails = getNoteDetails(rootNoteName);//vraci  jednu notu - midi cislo a array stringumena tonu 
-            NoteDetails[] notesInOrder = getAllNotesInOrder(rootNoteDetails);// seradi noty ve stupnici ||| Ddur =  D D# E F F# G G# A A# B C C#
+            Note rootNote = GetNoteDetails(rootNoteName);//vraci  jednu notu - midi cislo a array stringumena tonu 
+            List<Note> notesInOrder = GetAllNotesInOrder(rootNote);// seradi noty ve stupnici ||| Ddur =  D D# E F F# G G# A A# B C C#
 
 
             // pole not tonin
-            NoteDetails[] detailScale = new NoteDetails[7];//todo 12
+            List<Note> detailScale = new List<Note>();//7
 
-            for (int i = 0; i < steps.Length; i++)
+            for (int i = 0; i < steps.Length-1; i++)//7
             {
                 //vlozi noty ze stupnice do pole ale pouze ty ktere tam patri pomoci krokovani||| Ddur =  D E F F# G A B C#
-                detailScale[i] = notesInOrder[steps[i]];
+                detailScale.Add(notesInOrder[steps[i]]);
             }
 
-            Note[] tmpScale = new Note[7]; //todo 12 CDEFGAHC
+            List<Note> tmpScale = new List<Note>(); //todo 12 CDEFGAHC
 
-            char currentLetter = rootNoteName[0];// prvni pismeno = ze stringu jmena tonu           
+            char currentLetter = rootNoteName[0];
 
-            for (int i = 0; i < detailScale.Length; i++)// pro vsechny nazvy tonu
+            foreach (Note tmpNoteDetails in detailScale)
             {
-
-                NoteDetails tmpNoteDetails = detailScale[i]; //nota z toniny podle poradi
-
-                for (int j = 0; j < detailScale[i].NoteArray.Length; j++)
+                foreach (String currentNote in tmpNoteDetails.noteArray)
                 {
-                    string currentNote = tmpNoteDetails.NoteArray[j];
-
                     if (currentNote[0] == currentLetter)
                     {
-                        //pokud je nazev tonu z pole nazvu == tonu ze stringu, vlozi ton s lepsim jmenem do stupnice
-                        string RealNoteNameStr = prettifyNoteStr(currentNote);
 
-                        tmpScale[i] = new Note(RealNoteNameStr, tmpNoteDetails);//prida notu do pole not s hezkym jmenem
+                        tmpScale.Add(tmpNoteDetails);
+                        tmpScale.ElementAt(tmpScale.Count-1).name = currentNote;
                     }
-
                 }
-                // inkrementace - posouvame se od pismena v abecede dale
-                // C D E F G | A B ------C D E F G | A B -------C
                 if (currentLetter.Equals('G'))
                 {
                     // otoceni abecedy na zacatek
@@ -209,9 +85,89 @@ namespace ChordGenerator
                     currentLetter = (Char)(Convert.ToUInt16(currentLetter) + 1);
                 }
             }
+           
             return tmpScale;
         }
 
+        public static Note GetNoteDetails(string noteStr)//vrati konretni popis noty podle zadane noty
+        {
+            Console.WriteLine("getNoteDetails");
+            foreach (Note currentNote in publicDetails)
+            {
+                foreach (string noteName in currentNote.noteArray)
+                {
+                    if (noteStr == noteName)
+                    {
+                        return currentNote;
+                    }
+                }
+            }
+            return null;
+        }
 
+        public static List<Note> GetAllNotesInOrder(Note rootNote)
+        {
+            Console.WriteLine("getAllNotesInOrder");
+            List<Note> tmpNotes = publicDetails;
+            int shiftValue = 0;
+
+            foreach (Note note in publicDetails)
+            {                
+                if (rootNote.midiNumber == note.midiNumber)
+                {
+                    break;
+                }
+                shiftValue++;
+            }
+
+            //rychly shift not
+
+            for (int i = 0; i < shiftValue; i++)
+            {
+                Note tmpNote = tmpNotes[0];
+                tmpNotes.RemoveAt(0);
+                tmpNotes.Add(tmpNote);
+            }
+            return tmpNotes;
+        }
+
+        public static List<Note> RecalculateScale(string note,string selectedMode)
+        {
+            Console.WriteLine("recalculateScale");
+            return GetScale(note, Chord.GetAbsoluteSteps(selectedMode));
+        }
+
+        public static List<Note> GetCircleOfFifths(Note passedNote)
+        {
+            // podle referencni noty vytvori kvintovy kruh
+            List<Note> circle = new List<Note>();
+
+            circle.Add(passedNote);
+
+            for (int i = 1; i < 12; i++)
+            {
+                Note tmpLast = circle.Last();
+                Note tmpSeventh = GetAllNotesInOrder(tmpLast).ElementAt(7);
+                circle.Add(tmpSeventh);
+            }
+
+            return circle;
+        }
+
+        public static List<Note> RotateCircleOfFifths(List<Note> circleOfFifths, int offset)
+        {
+            List<Note> newCircle = circleOfFifths;
+ 
+            for (int i = 0; i < offset; i++)
+            {
+                Note tmpNote = newCircle[0];
+                newCircle.RemoveAt(0);
+                newCircle.Add(tmpNote);
+            }
+
+            return newCircle;
+
+        }
     }
+    
 }

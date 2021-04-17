@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,78 +12,105 @@ namespace ChordGenerator
 
     public partial class Generator
     {
+        public Generator()
+        {
 
-        public string[] getRandomizedProgression()
+        }
+
+        Random rnd = new Random();
+
+        private char selectedRootNote;
+        public char selectedModifier;
+        private string selectedMode;
+        private List<int> selectedProgression;
+
+        public static List<Note> scale;
+
+        public List<List<Chord>> alternativeProgressions;
+        public List<Chord> chordsInKey;
+        public List<Chord> mainProgression;
+
+
+        public void RandomizeProgression()
         {
             Console.WriteLine("getRandomizedProgression");
-            actualBaseNote = baseNotes[getRandomItem(baseNotes.Length)];
-            actualNoteModifier = noteModifiers[getRandomItem(noteModifiers.Length)];
-            actualMode = chordModes[getRandomItem(chordModes.Length)];
-            actualChordProgression = chordProgressions[getRandomItem(chordProgressions.Length)];
+            selectedRootNote = Note.publicRootNotes.ElementAt(getRandomItem(Note.publicRootNotes.Length));
 
-            return new string[] { actualBaseNote.ToString(), actualNoteModifier.PreSign.ToString(), actualMode.Name.ToString(), actualChordProgression.Name.ToString() };
+            selectedModifier = Note.publicModifiers.ElementAt(getRandomItem(Note.publicModifiers.Count)).Value;
+
+            selectedMode = Chord.publicModes.ElementAt(getRandomItem(Chord.publicModes.Count)).Name;
+
+            selectedProgression = Chord.publicProgressions.ElementAt(getRandomItem(Chord.publicProgressions.Count)).Value.ToList();
+
         }
-        public void recalculateScale()
+        public string[] GetProgressionInfo()
         {
-            Console.WriteLine("recalculateScale");
-            actualScaleNotes = note.getScale(actualBaseNote.ToString() + actualNoteModifier.HelpSign.ToString(), getAbsoluteSteps(actualMode));
+
+            return new string[] { selectedRootNote.ToString(), selectedModifier.ToString(), selectedMode, Chord.publicProgressions.FirstOrDefault(x => x.Value == selectedProgression.ToArray()).Key };
+
         }
-       
+
+
         public int getRandomItem(int length)
         {
             return rnd.Next(0, length);
         }
 
 
-        public void GenerateChordProgression(string passedKey, string passedMode, string passedModificator, string passedProgression)
+        public void GenerateChordProgression(string rootNote, string modifier, string mode, string progression)
         {
             Console.WriteLine("GenerateChordProgression");
-            AssignVars();//inicializace dat            
-            setValues(passedKey[0], passedModificator[0], passedMode, passedProgression);//prvni char ze stringu
+            // AssignVars();//inicializace dat            
+            SetValues(rootNote[0], modifier[0], mode, progression);//prvni char ze stringu
 
-            recalculateScale();
-            chord.recalculateAllChordsInKey();
-            progression.recalculateMainProgression();
-            recalculateAlternatives();
+            //recalculate
+            scale = Note.RecalculateScale(selectedRootNote.ToString() + selectedModifier, selectedMode);
+
+            chordsInKey = Chord.RecalculateAllChordsInKey(selectedMode, scale);
+            mainProgression = Chord.RecalculateMainProgression(selectedProgression,chordsInKey);
+
+            alternativeProgressions = Chord.RecalculateAlternatives(selectedRootNote.ToString() + selectedModifier, selectedMode, selectedProgression);
         }
-        public void recalculateAlternatives()
+        public List<Chord> GetChordsInKey() {
+            return chordsInKey;
+        }
+
+
+        public void SetValues(char rootNote, char modifier, string mode, string progression)
         {
-            Chord[][] tempAlternativeProgression = new Chord[3][];
+            Console.WriteLine("Setting values");
 
-            NoteDetails rootNoteDetails = getNoteDetails(actualBaseNote.ToString() + actualNoteModifier.HelpSign.ToString());
-            NoteDetails[] orderedNotes = getAllNotesInOrder(rootNoteDetails);
+            Console.WriteLine("-----base note-----");
+            selectedRootNote = rootNote;
+            Console.WriteLine("-----modificator-----");
+            //nastaveni modifikatoru
+            selectedModifier = modifier;
 
-            // kvinotvy kruh
-            NoteDetails[] circleOfFifths = getCircleOfFifths(rootNoteDetails);
+            Console.WriteLine("-----mode-----");
+            selectedMode = mode;
 
-            // otocit kruh
-            NoteDetails[] innerCircle = rotateCircleOfFifths(circleOfFifths, actualMode.InnerOffset);
-            //molovy zaklad
+            Console.WriteLine("-----progression-based-on-mood-----");
+            //nastaveni cadence
+            selectedProgression = Chord.publicProgressions[progression].ToList();//value from key
 
-            Mode oppositeMode;
-
-            for (int i = 0; i < chordModes.Length; i++)
-            {
-                if (chordModes[i].Name == actualMode.OpositeMode)
-                {
-                    oppositeMode = chordModes[i];
-                }
-            }
-
-            tempAlternativeProgression[0] = getProgressionFromBaseAndMode(innerCircle[0].NoteArray[0], oppositeMode);//tady
-
-            // +1 a -1 rotation
-            string[] bases = { circleOfFifths[1].NoteArray[0], circleOfFifths[circleOfFifths.Length - 1].NoteArray[0] };
-            for (int i = 0; i < bases.Length; i++)
-            {
-                tempAlternativeProgression[i + 1] = getProgressionFromBaseAndMode(bases[i], actualMode);
-            }
-
-            alternativeChordProgressions = tempAlternativeProgression;
         }
+        public string GetChordName(Player.PlayType playType, int passedChordNumber, int passedChordProgression = 0)
+        {
+            string tempChord;
+            if (playType == Player.PlayType.MAIN_CHORDS)
+            {
+                tempChord = mainProgression[passedChordNumber].name;
+            }
+            else if (playType == Player.PlayType.ALTERNATIVE_CHORDS)
+            {
+                tempChord = alternativeProgressions[passedChordProgression][passedChordNumber].name;
+            }
+            else
+            {
+                tempChord = chordsInKey[passedChordNumber].name;
+            }
 
-
-
-
+            return tempChord;
+        }
     }
 }

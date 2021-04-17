@@ -33,7 +33,7 @@ namespace ChordGenerator
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.pianoControl1 = new Sanford.Multimedia.Midi.UI.PianoControl();
+            this.PianoControl1 = new Sanford.Multimedia.Midi.UI.PianoControl();
             this.GenerateChordsBtn = new System.Windows.Forms.Button();
             this.key = new System.Windows.Forms.ComboBox();
             this.modificator = new System.Windows.Forms.ComboBox();
@@ -77,20 +77,20 @@ namespace ChordGenerator
             this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // pianoControl1
+            // PianoControl1
             // 
-            this.pianoControl1.BackColor = System.Drawing.SystemColors.Menu;
-            this.pianoControl1.ForeColor = System.Drawing.Color.Black;
-            this.pianoControl1.HighNoteID = 109;
-            this.pianoControl1.Location = new System.Drawing.Point(-7, 454);
-            this.pianoControl1.LowNoteID = 21;
-            this.pianoControl1.Name = "pianoControl1";
-            this.pianoControl1.NoteOnColor = System.Drawing.Color.OrangeRed;
-            this.pianoControl1.Size = new System.Drawing.Size(952, 77);
-            this.pianoControl1.TabIndex = 5;
-            this.pianoControl1.Text = "pianoControl1";
-            this.pianoControl1.PianoKeyDown += new System.EventHandler<Sanford.Multimedia.Midi.UI.PianoKeyEventArgs>(this.pianoControl1_PianoKeyDown);
-            this.pianoControl1.PianoKeyUp += new System.EventHandler<Sanford.Multimedia.Midi.UI.PianoKeyEventArgs>(this.pianoControl1_PianoKeyUp);
+            this.PianoControl1.BackColor = System.Drawing.SystemColors.Menu;
+            this.PianoControl1.ForeColor = System.Drawing.Color.Black;
+            this.PianoControl1.HighNoteID = 109;
+            this.PianoControl1.Location = new System.Drawing.Point(-7, 454);
+            this.PianoControl1.LowNoteID = 21;
+            this.PianoControl1.Name = "PianoControl1";
+            this.PianoControl1.NoteOnColor = System.Drawing.Color.OrangeRed;
+            this.PianoControl1.Size = new System.Drawing.Size(952, 77);
+            this.PianoControl1.TabIndex = 99999;
+            this.PianoControl1.Text = "PianoControl1";
+            this.PianoControl1.PianoKeyDown += new System.EventHandler<Sanford.Multimedia.Midi.UI.PianoKeyEventArgs>(this.PianoControl1_PianoKeyDown);
+            this.PianoControl1.PianoKeyUp += new System.EventHandler<Sanford.Multimedia.Midi.UI.PianoKeyEventArgs>(this.PianoControl1_PianoKeyUp);
             // 
             // GenerateChordsBtn
             // 
@@ -166,11 +166,7 @@ namespace ChordGenerator
             "Riot",
             "Sad",
             "Strange",
-            "Weird",
-            "",
-            "",
-            "",
-            ""});
+            "Weird"});
             this.mood.Location = new System.Drawing.Point(471, 127);
             this.mood.Margin = new System.Windows.Forms.Padding(4);
             this.mood.Name = "mood";
@@ -789,7 +785,7 @@ namespace ChordGenerator
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(914, 532);
-            this.Controls.Add(this.pianoControl1);
+            this.Controls.Add(this.PianoControl1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.metroSetControlBox1);
@@ -888,7 +884,7 @@ namespace ChordGenerator
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button22;
         private System.Windows.Forms.Button button23;
-        private Sanford.Multimedia.Midi.UI.PianoControl pianoControl1;
+        private Sanford.Multimedia.Midi.UI.PianoControl PianoControl1;
         private MetroSet_UI.Controls.MetroSetControlBox metroSetControlBox1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
