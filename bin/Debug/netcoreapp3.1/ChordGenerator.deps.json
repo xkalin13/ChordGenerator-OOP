@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ChordGenerator/1.0.0": {
+        "dependencies": {
+          "MetroSet_UI": "2.0.0",
+          "Sanford.Multimedia.Midi": "6.0.0"
+        },
+        "runtime": {
+          "ChordGenerator.dll": {}
+        }
+      },
+      "MetroSet_UI/2.0.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/MetroSet UI.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "Sanford.Multimedia.Midi/6.0.0": {
+        "runtime": {
+          "lib/net20/Sanford.Multimedia.Midi.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ChordGenerator/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MetroSet_UI/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7FO1rFTiht/j+xdvyRBQOv3JL8yoKBwQrrBuA/Zbz98sNIhgpNDO977ZumAz6TTfbuIT/4waSHsFBp01cXDDIA==",
+      "path": "metroset_ui/2.0.0",
+      "hashPath": "metroset_ui.2.0.0.nupkg.sha512"
+    },
+    "Sanford.Multimedia.Midi/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TS+yd+YD6Wxk00oqePNvm0+anWymrorLvdFeLYmtOb9v0VZi9NUm8yP3rxwX271DUz2ChkwAak+4ESKmc4YJGw==",
+      "path": "sanford.multimedia.midi/6.0.0",
+      "hashPath": "sanford.multimedia.midi.6.0.0.nupkg.sha512"
+    }
+  }
+}
