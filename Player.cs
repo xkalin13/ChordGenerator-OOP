@@ -1,45 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows.Forms;
+﻿using System.Threading;
 using Sanford.Multimedia.Midi;
 using Sanford.Multimedia.Midi.UI;
 
 
 namespace ChordGenerator
 {
-    public class Player //TODO implement rythm
+    public class Player
     {
 
-        public OutputDevice outDevice = new OutputDevice(0);
-
-        private readonly OutputDeviceDialog outDialog = new OutputDeviceDialog();
-
-
-        public Generator generator;
+        public OutputDevice OutDevice = new OutputDevice(0);
+        public Generator Generator;
 
 
         public enum PlayType
         {
-            KEY_CHORDS,
-            MAIN_CHORDS,
-            ALTERNATIVE_CHORDS
+            Key,
+            Main,
+            Alternative
         };
 
         public Player(Generator generator) {
-            this.generator = generator;
+            this.Generator = generator;
         }
 
 
         public void PlayChords(PlayType playType, int chordInOrder, int alternativeIndex)
         {
 
-            if (playType == PlayType.MAIN_CHORDS)
+            if (playType == PlayType.Main)
             {
                 PlayMainChord(chordInOrder);
             }
-            else if (playType == PlayType.KEY_CHORDS)
+            else if (playType == PlayType.Key)
             {
                PlayKeyChord(chordInOrder);
             }
@@ -68,39 +60,39 @@ namespace ChordGenerator
         public void PlayMainChord(int passedChordNumber)
         {
 
-            PlayChord(generator.mainProgression[passedChordNumber]);
+            PlayChord(Generator.MainProgression[passedChordNumber]);
         }
         public void PlayAlternativeChord(int progressionId,int passedChordNumber)
         {
 
-            PlayChord(generator.alternativeProgressions[passedChordNumber][progressionId]);
+            PlayChord(Generator.AlternativeProgressions[passedChordNumber][progressionId]);
         }
         public void PlayKeyChord(int passedChordNumber)
         {
 
-            PlayChord(generator.chordsInKey[passedChordNumber]);
+            PlayChord(Generator.ChordsInKey[passedChordNumber]);
         }
 
         private void PlayNote(int note, int volume = 127)
         {
 
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
+            OutDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, note, volume));
 
 
         }
         private void StopNote(int midi) {
             
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff,0, midi));
+            OutDevice.Send(new ChannelMessage(ChannelCommand.NoteOff,0, midi));
         }
         public void PianoControl1_PianoKeyUp(object sender, PianoKeyEventArgs e)
         {
 
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, e.NoteID, 0));
+            OutDevice.Send(new ChannelMessage(ChannelCommand.NoteOff, 0, e.NoteID, 0));
         }
         public void PianoControl1_PianoKeyDown(object sender, PianoKeyEventArgs e)
         {
 
-            outDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, e.NoteID, 127));
+            OutDevice.Send(new ChannelMessage(ChannelCommand.NoteOn, 0, e.NoteID, 127));
         }
     }
 }

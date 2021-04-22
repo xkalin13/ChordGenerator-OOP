@@ -1,65 +1,46 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace ChordGenerator
 {
     public class Chord
     {
-        public struct Mode
-        {
-            public string Name { get; }
-            public int Offset { get; }
-            public int[] StepsToNext { get; }
-            public string[] ChordType { get; }
-            public Mode(string name, int offset, int[] stepsToNext, string[] chordType)
-            {
-                Name = name;
-                Offset = offset;
-                StepsToNext = stepsToNext;
-                ChordType = chordType;
-            }
-        }
+        public string Name { get; }
+        public List<Note> ChordNotes { get; }
+        private Mode ChordType;
 
-        public string name;
-
-        public List<Note> chordNotes;
-        public Note baseNote;
-        public Mode chordType;
-
-        public Chord(string name,Note baseNote, List<Note> chordNotes) {
-            this.name = name;
-            this.baseNote = baseNote;
-            this.chordNotes = chordNotes;
+        public Chord(string name, List<Note> chordNotes) {
+            this.Name = name;
+            this.ChordNotes = chordNotes;
 
         }
 
-        public static readonly Dictionary<String, int[]> publicProgressions = new Dictionary<String, int[]>();
-        public static readonly List<Mode> publicModes = new List<Mode>();
+        public static readonly Dictionary<String, int[]> PublicProgressions = new Dictionary<String, int[]>();
+        public static readonly List<Mode> PublicModes = new List<Mode>();
         public static void SetProgressions()
         {
-            publicProgressions.Add("Alternative", new int[] { 5, 3, 0, 4 });
-            publicProgressions.Add("Nostalgy", new int[] { 0, 0, 3, 5 });
-            publicProgressions.Add("Cliché", new int[] { 0, 4, 5, 3 });
-            publicProgressions.Add("Basic", new int[] { 0, 5, 2, 6 });
-            publicProgressions.Add("Strange", new int[] { 0, 5, 3, 4 });
-            publicProgressions.Add("Weird", new int[] { 0, 5, 1, 4 });
-            publicProgressions.Add("Never Ending", new int[] { 0, 5, 1, 3 });
-            publicProgressions.Add("Energy", new int[] { 0, 2, 3, 5 });
-            publicProgressions.Add("Extra", new int[] { 0, 3, 2, 5 });
-            publicProgressions.Add("Memories", new int[] { 0, 3, 0, 4 });
-            publicProgressions.Add("Riot", new int[] { 3, 0, 3, 4 });
-            publicProgressions.Add("Sad", new int[] { 0, 3, 4, 4 });
+            PublicProgressions.Add("Alternative", new int[] { 5, 3, 0, 4 });
+            PublicProgressions.Add("Nostalgy", new int[] { 0, 0, 3, 5 });
+            PublicProgressions.Add("Cliché", new int[] { 0, 4, 5, 3 });
+            PublicProgressions.Add("Basic", new int[] { 0, 5, 2, 6 });
+            PublicProgressions.Add("Strange", new int[] { 0, 5, 3, 4 });
+            PublicProgressions.Add("Weird", new int[] { 0, 5, 1, 4 });
+            PublicProgressions.Add("Never Ending", new int[] { 0, 5, 1, 3 });
+            PublicProgressions.Add("Energy", new int[] { 0, 2, 3, 5 });
+            PublicProgressions.Add("Extra", new int[] { 0, 3, 2, 5 });
+            PublicProgressions.Add("Memories", new int[] { 0, 3, 0, 4 });
+            PublicProgressions.Add("Riot", new int[] { 3, 0, 3, 4 });
+            PublicProgressions.Add("Sad", new int[] { 0, 3, 4, 4 });
         }
         public static void SetModes()
         {
-            publicModes.Add(new Mode("major", 3, new int[] { 2, 2, 1, 2, 2, 2, 1 }, new string[] { "", "m", "m", "", "", "m", "dim" }));
-            publicModes.Add(new Mode("minor", 9, new int[] { 2, 1, 2, 2, 1, 2, 2 }, new string[] { "m", "dim", "", "m", "m", "", "" }));
+            PublicModes.Add(new Mode("major", 3, new int[] { 2, 2, 1, 2, 2, 2, 1 }, new string[] { "", "m", "m", "", "", "m", "dim" }));
+            PublicModes.Add(new Mode("minor", 9, new int[] { 2, 1, 2, 2, 1, 2, 2 }, new string[] { "m", "dim", "", "m", "m", "", "" }));
         }
         public static List<Chord> GetProgressionFromBaseAndMode(string rootNote, string mode, List<int> mood)
         {
-            Mode tmpMode = publicModes.Find(x => x.Name == mode);
+            Mode tmpMode = PublicModes.Find(x => x.Name == mode);
 
             int[] absSteps = GetAbsoluteSteps(mode);
             List<Note> tmpScale = Note.GetScale(rootNote, absSteps);
@@ -68,7 +49,7 @@ namespace ChordGenerator
 
             for (int i = 0; i < tmpScale.Count; i++)
             {
-                chordsInKey.Add(new Chord(tmpScale[i].name + tmpMode.ChordType[i], tmpScale[i],Chord.GetChordNotes(tmpScale,i)));
+                chordsInKey.Add(new Chord(tmpScale[i].Name + tmpMode.ChordType[i],Chord.GetChordNotes(tmpScale,i)));
             } 
 
             return GetProgression(mood, chordsInKey);
@@ -86,7 +67,7 @@ namespace ChordGenerator
         }
         public static List<Chord> RecalculateAllChordsInKey(string modeName, List<Note> scale)
         {
-            Mode tmpMode = publicModes.Find(x => x.Name == modeName);
+            Mode tmpMode = PublicModes.Find(x => x.Name == modeName);
 
             List<Chord> tmpChordsInKey = new List<Chord>();
 
@@ -94,8 +75,7 @@ namespace ChordGenerator
             {
                 //name /mode /details
                 tmpChordsInKey.Add(new Chord(
-                        scale[i].name + tmpMode.ChordType[i],
-                        scale[i],
+                        scale[i].Name + tmpMode.ChordType[i],
                         Chord.GetChordNotes(scale,i)
                         ));
             }
@@ -103,7 +83,7 @@ namespace ChordGenerator
         }
         public static int[] GetAbsoluteSteps(string modeName)
         {
-            Mode tmpMode = publicModes.Find(x => x.Name == modeName);
+            Mode tmpMode = PublicModes.Find(x => x.Name == modeName);
 
             int[] absoluteSteps = new int[8];
             int rollingTotal = 0;
@@ -118,7 +98,6 @@ namespace ChordGenerator
         }
         public static List<Chord> RecalculateMainProgression(List<int> mood, List<Chord> chordsInKey)
         {
-            Console.WriteLine("recalculateMainProgression");
             return GetProgression(mood, chordsInKey);
             
         }
@@ -129,15 +108,13 @@ namespace ChordGenerator
             Note rootNoteDetails = Note.GetNoteDetails(note);
             List<Note> orderedNotes = Note.GetAllNotesInOrder(rootNoteDetails);
 
-            // kvinotvy kruh
             List<Note> circleOfFifths = Note.GetCircleOfFifths(rootNoteDetails);
 
-            // otocit kruh
-            int offset = publicModes.Find(x => x.Name == mode).Offset;
+            int offset = PublicModes.Find(x => x.Name == mode).Offset;
 
             List<Note> innerCircle = Note.RotateCircleOfFifths(Note.GetCircleOfFifths(rootNoteDetails), offset);
 
-            string oppositeMode = publicModes.Find(x => x.Name != mode).Name;
+            string oppositeMode = PublicModes.Find(x => x.Name != mode).Name;
 
             //opacny mode
             tempAlternativeProgression.Add(GetProgressionFromBaseAndMode(innerCircle[0].noteArray[0], oppositeMode, mood));
@@ -149,7 +126,7 @@ namespace ChordGenerator
             return tempAlternativeProgression;
         }
         public List<Note> GetChord() {
-            return chordNotes;
+            return ChordNotes;
         }
         public static List<Note> GetChordNotes(List<Note> scale, int baseNoteIndex)
         {

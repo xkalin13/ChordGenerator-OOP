@@ -1,110 +1,96 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Text.RegularExpressions;
-using Sanford.Multimedia.Midi;
 namespace ChordGenerator
 {
 
     public partial class Generator
     {
 
+        private Random RandomNum = new Random();
 
-        Random rnd = new Random();
+        private char SelectedRootNote;
+        private char SelectedModifier;
+        private string SelectedMode;
+        private List<int> SelectedProgression;
 
-        private char selectedRootNote;
-        private char selectedModifier;
-        private string selectedMode;
-        private List<int> selectedProgression;
-
-        public static List<Note> scale;
-
-        public List<List<Chord>> alternativeProgressions;
-        public List<Chord> chordsInKey;
-        public List<Chord> mainProgression;
+        private List<Note> Scale;
+        public List<List<Chord>> AlternativeProgressions { get; private set; }
+        public List<Chord> ChordsInKey { get; private set; }
+        public List<Chord> MainProgression { get; private set; }
 
         public Generator() { }
         public void RandomizeProgression()
         {
-            Console.WriteLine("getRandomizedProgression");
-            selectedRootNote = Note.publicRootNotes.ElementAt(getRandomItem(Note.publicRootNotes.Length));
-            selectedModifier = Note.publicModifiers.ElementAt(getRandomItem(Note.publicModifiers.Count)).Value;
-            selectedMode = Chord.publicModes.ElementAt(getRandomItem(Chord.publicModes.Count)).Name;
-            selectedProgression = Chord.publicProgressions.ElementAt(getRandomItem(Chord.publicProgressions.Count)).Value.ToList();
+            SelectedRootNote = Note.PublicRootNotes.ElementAt(getRandomItem(Note.PublicRootNotes.Length));
+            SelectedModifier = Note.PublicModifiers.ElementAt(getRandomItem(Note.PublicModifiers.Count)).Value;
+            SelectedMode = Chord.PublicModes.ElementAt(getRandomItem(Chord.PublicModes.Count)).Name;
+            SelectedProgression = Chord.PublicProgressions.ElementAt(getRandomItem(Chord.PublicProgressions.Count)).Value.ToList();
         }
         public string[] GetProgressionInfo()
         {
             string mood = "";
 
-            foreach (var item in Chord.publicProgressions) {
-                if (Enumerable.SequenceEqual(item.Value, selectedProgression)) {
+            foreach (var item in Chord.PublicProgressions) {
+                if (Enumerable.SequenceEqual(item.Value, SelectedProgression)) {
                     mood = item.Key;
                 }
             }
 
             return new string[] { 
-                selectedRootNote.ToString(),
-                selectedModifier.ToString(),
-                selectedMode,
+                SelectedRootNote.ToString(),
+                SelectedModifier.ToString(),
+                SelectedMode,
                 mood };
 
         }
         public int getRandomItem(int length)
         {
-            return rnd.Next(0, length);
+            return RandomNum.Next(0, length);
         }
         public void GenerateChordProgression(string rootNote, string modifier, string mode, string progression)
         {
-            Console.WriteLine("GenerateChordProgression");
-       
+      
             SetValues(rootNote[0], modifier[0], mode, progression);
 
-            scale = Note.RecalculateScale(selectedRootNote.ToString() + selectedModifier, selectedMode);
-            chordsInKey = Chord.RecalculateAllChordsInKey(selectedMode, scale);
-            mainProgression = Chord.RecalculateMainProgression(selectedProgression,chordsInKey);
-
-            alternativeProgressions = Chord.RecalculateAlternatives(selectedRootNote.ToString() + selectedModifier, selectedMode, selectedProgression);
+            this.Scale = Note.RecalculateScale(SelectedRootNote.ToString() + SelectedModifier, SelectedMode);
+            
+            this.ChordsInKey = Chord.RecalculateAllChordsInKey(SelectedMode,Scale);
+            this.MainProgression = Chord.RecalculateMainProgression(SelectedProgression,ChordsInKey);
+            this.AlternativeProgressions = Chord.RecalculateAlternatives(SelectedRootNote.ToString() + SelectedModifier, SelectedMode, SelectedProgression);
         }
         public List<Chord> GetChordsInKey() {
-            return chordsInKey;
+            return ChordsInKey;
         }
 
 
         public void SetValues(char rootNote, char modifier, string mode, string progression)
         {
-            Console.WriteLine("Setting values");
 
-            Console.WriteLine("-----base note-----");
-            selectedRootNote = rootNote;
-            Console.WriteLine("-----modificator-----");
-            selectedModifier = modifier;
-            Console.WriteLine("-----mode-----");
-            selectedMode = mode;
-            Console.WriteLine("-----progression-based-on-mood-----");
-            selectedProgression = Chord.publicProgressions[progression].ToList();
+            SelectedRootNote = rootNote;
+            SelectedModifier = modifier;
+            SelectedMode = mode;
+            SelectedProgression = Chord.PublicProgressions[progression].ToList();
 
         }
         public string GetChordName(Player.PlayType playType, int passedChordNumber, int passedChordProgression = 0)
         {
             string tempChord;
-            if (playType == Player.PlayType.MAIN_CHORDS)
+            if (playType == Player.PlayType.Main)
             {
-                tempChord = mainProgression[passedChordNumber].name;
+                tempChord = MainProgression[passedChordNumber].Name;
             }
-            else if (playType == Player.PlayType.ALTERNATIVE_CHORDS)
+            else if (playType == Player.PlayType.Alternative)
             {
-                tempChord = alternativeProgressions[passedChordProgression][passedChordNumber].name;
+                tempChord = AlternativeProgressions[passedChordProgression][passedChordNumber].Name;
             }
             else
             {
-                tempChord = chordsInKey[passedChordNumber].name;
+                tempChord = ChordsInKey[passedChordNumber].Name;
             }
 
             return tempChord;
         }
+
     }
 }
