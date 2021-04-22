@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "O8y/58XnMxje0UqqKD6eSRzx6n+SKYR0OW6AtJ4PuFjqCplw+yneuwa3JhSs2UHbUj9ml2yuH7zHYDDngTeOaQ==",
+  "dgSpecHash": "huhXUh41J+K/KUAbH3sK8ItAnUjlMbd9cWu3XfMixIDNj5xQT82Igb3l/XS/67D0oiRwA7zPQo4DGMJqQwcq4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\honza\\Desktop\\Škola\\ProjektOOP\\ChordGenerator\\ChordGenerator.csproj",
+  "projectFilePath": "D:\\Documents\\Toceny_222683\\ChordGenerator\\ChordGenerator-OOP\\ChordGenerator.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\honza\\.nuget\\packages\\metroset_ui\\2.0.0\\metroset_ui.2.0.0.nupkg.sha512",
-    "C:\\Users\\honza\\.nuget\\packages\\sanford.multimedia.midi\\6.0.0\\sanford.multimedia.midi.6.0.0.nupkg.sha512"
+    "C:\\Users\\ivoto\\.nuget\\packages\\metroset_ui\\2.0.0\\metroset_ui.2.0.0.nupkg.sha512",
+    "C:\\Users\\ivoto\\.nuget\\packages\\sanford.multimedia.midi\\6.6.2\\sanford.multimedia.midi.6.6.2.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Balíček Sanford.Multimedia.Midi 6.0.0 se místo cílové architektury projektu .NETCoreApp,Version=v3.1 obnovil pomocí .NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8. Balíček nemusí být plně kompatibilní s vaším projektem.",
+      "message": "Package 'Sanford.Multimedia.Midi 6.6.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "Sanford.Multimedia.Midi",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"

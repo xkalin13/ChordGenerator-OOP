@@ -6,8 +6,8 @@
       "version": "3.1.0"
     },
     "additionalProbingPaths": [
-      "C:\\Users\\honza\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\honza\\.nuget\\packages"
+      "C:\\Users\\ivoto\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ivoto\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

@@ -17,3 +17,22 @@ C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\
 C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.Properties.Resources.resources
 C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.Form1.resources
 C:\Users\honza\Desktop\Škola\ProjektOOP\ChordGenerator\obj\Debug\netcoreapp3.1\ChordGenerator.csprojAssemblyReference.cache
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.csprojAssemblyReference.cache
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.dll
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.pdb
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.exe
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.deps.json
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.runtimeconfig.json
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.runtimeconfig.dev.json
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.dll
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\ChordGenerator.pdb
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\MetroSet UI.dll
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\bin\Debug\netcoreapp3.1\Sanford.Multimedia.Midi.dll
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.Form1.resources
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.Properties.Resources.resources
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.GenerateResource.cache
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.AssemblyInfoInputs.cache
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.AssemblyInfo.cs
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.CoreCompileInputs.cache
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.csproj.CopyComplete
+D:\Documents\Toceny_222683\ChordGenerator\ChordGenerator-OOP\obj\Debug\netcoreapp3.1\ChordGenerator.genruntimeconfig.cache

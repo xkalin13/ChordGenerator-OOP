@@ -11,13 +11,13 @@ namespace ChordGenerator
         public static Dictionary<int, char> publicModifiers = new Dictionary<int, char>();
         public static List<Note> publicDetails = new List<Note>();
 
-        public string name { get; set; }
-        public int midiNumber;
-        public int offset;
+        public string Name { get; set; }
+        public int MidiNumber;
+        public int Offset;
         public string[] noteArray;
 
         public Note(int midiNumber, string[] noteArray) {
-            this.midiNumber = midiNumber;
+            this.MidiNumber = midiNumber;
             this.noteArray = noteArray;
         }
 
@@ -71,7 +71,7 @@ namespace ChordGenerator
                     {
 
                         tmpScale.Add(tmpNoteDetails);
-                        tmpScale.ElementAt(tmpScale.Count-1).name = currentNote;
+                        tmpScale.ElementAt(tmpScale.Count-1).Name = currentNote;
                     }
                 }
                 if (currentLetter.Equals('G'))
@@ -113,7 +113,7 @@ namespace ChordGenerator
 
             foreach (Note note in publicDetails)
             {                
-                if (rootNote.midiNumber == note.midiNumber)
+                if (rootNote.MidiNumber == note.MidiNumber)
                 {
                     break;
                 }

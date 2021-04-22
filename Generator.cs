@@ -12,35 +12,33 @@ namespace ChordGenerator
 
     public partial class Generator
     {
-
-
-        Random rnd = new Random();
+        readonly Random rnd = new Random();
 
         private char selectedRootNote;
         private char selectedModifier;
         private string selectedMode;
         private List<int> selectedProgression;
 
-        public static List<Note> scale;
+        public static List<Note> Scale;
 
-        public List<List<Chord>> alternativeProgressions;
-        public List<Chord> chordsInKey;
-        public List<Chord> mainProgression;
+        public List<List<Chord>> AlternativeProgressions;
+        public List<Chord> ChordsInKey;
+        public List<Chord> MainProgression;
 
         public Generator() { }
         public void RandomizeProgression()
         {
             Console.WriteLine("getRandomizedProgression");
-            selectedRootNote = Note.publicRootNotes.ElementAt(getRandomItem(Note.publicRootNotes.Length));
-            selectedModifier = Note.publicModifiers.ElementAt(getRandomItem(Note.publicModifiers.Count)).Value;
-            selectedMode = Chord.publicModes.ElementAt(getRandomItem(Chord.publicModes.Count)).Name;
-            selectedProgression = Chord.publicProgressions.ElementAt(getRandomItem(Chord.publicProgressions.Count)).Value.ToList();
+            selectedRootNote = Note.publicRootNotes.ElementAt(GetRandomItem(Note.publicRootNotes.Length));
+            selectedModifier = Note.publicModifiers.ElementAt(GetRandomItem(Note.publicModifiers.Count)).Value;
+            selectedMode = Chord.PublicModes.ElementAt(GetRandomItem(Chord.PublicModes.Count)).Name;
+            selectedProgression = Chord.PublicProgressions.ElementAt(GetRandomItem(Chord.PublicProgressions.Count)).Value.ToList();
         }
         public string[] GetProgressionInfo()
         {
             string mood = "";
 
-            foreach (var item in Chord.publicProgressions) {
+            foreach (var item in Chord.PublicProgressions) {
                 if (Enumerable.SequenceEqual(item.Value, selectedProgression)) {
                     mood = item.Key;
                 }
@@ -53,7 +51,7 @@ namespace ChordGenerator
                 mood };
 
         }
-        public int getRandomItem(int length)
+        public int GetRandomItem(int length)
         {
             return rnd.Next(0, length);
         }
@@ -63,14 +61,14 @@ namespace ChordGenerator
        
             SetValues(rootNote[0], modifier[0], mode, progression);
 
-            scale = Note.RecalculateScale(selectedRootNote.ToString() + selectedModifier, selectedMode);
-            chordsInKey = Chord.RecalculateAllChordsInKey(selectedMode, scale);
-            mainProgression = Chord.RecalculateMainProgression(selectedProgression,chordsInKey);
+            Scale = Note.RecalculateScale(selectedRootNote.ToString() + selectedModifier, selectedMode);
+            ChordsInKey = Chord.RecalculateAllChordsInKey(selectedMode, Scale);
+            MainProgression = Chord.RecalculateMainProgression(selectedProgression, ChordsInKey);
 
-            alternativeProgressions = Chord.RecalculateAlternatives(selectedRootNote.ToString() + selectedModifier, selectedMode, selectedProgression);
+            AlternativeProgressions = Chord.RecalculateAlternatives(selectedRootNote.ToString() + selectedModifier, selectedMode, selectedProgression);
         }
         public List<Chord> GetChordsInKey() {
-            return chordsInKey;
+            return ChordsInKey;
         }
 
 
@@ -85,23 +83,23 @@ namespace ChordGenerator
             Console.WriteLine("-----mode-----");
             selectedMode = mode;
             Console.WriteLine("-----progression-based-on-mood-----");
-            selectedProgression = Chord.publicProgressions[progression].ToList();
+            selectedProgression = Chord.PublicProgressions[progression].ToList();
 
         }
         public string GetChordName(Player.PlayType playType, int passedChordNumber, int passedChordProgression = 0)
         {
             string tempChord;
-            if (playType == Player.PlayType.MAIN_CHORDS)
+            if (playType == Player.PlayType.Main)
             {
-                tempChord = mainProgression[passedChordNumber].name;
+                tempChord = MainProgression[passedChordNumber].Name;
             }
-            else if (playType == Player.PlayType.ALTERNATIVE_CHORDS)
+            else if (playType == Player.PlayType.Alternative)
             {
-                tempChord = alternativeProgressions[passedChordProgression][passedChordNumber].name;
+                tempChord = AlternativeProgressions[passedChordProgression][passedChordNumber].Name;
             }
             else
             {
-                tempChord = chordsInKey[passedChordNumber].name;
+                tempChord = ChordsInKey[passedChordNumber].Name;
             }
 
             return tempChord;
